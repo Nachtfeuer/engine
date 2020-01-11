@@ -1,0 +1,19 @@
+site_name: Engine
+site_author: 'Thomas Lehmann <thomas.lehmann.private@gmail.com'
+site_url: 'https://nachtfeuer.github.io/engine/'
+repo_url: 'https://github.com/Nachtfeuer/engine'
+
+nav:
+    - Home: index.md
+    - Math:
+        - vector.md
+
+theme: readthedocs
+
+markdown_extensions:
+    - toc:
+        baselevel: 3
+    - pymdownx.arithmatex
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
