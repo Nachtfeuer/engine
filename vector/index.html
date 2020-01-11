@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Thomas Lehmann <thomas.lehmann.private@gmail.com">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>The vector in 3d - Engine</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "The vector in 3d";
+    var mkdocs_page_input_path = "vector.md";
+    var mkdocs_page_url = "/engine/vector/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Engine</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Math</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">The vector in 3d</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#the-vector-in-3d">The vector in 3d</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#vector-representation">Vector representation</a></li>
+        
+            <li><a class="toctree-l4" href="#length-of-a-vector">Length of a vector</a></li>
+        
+            <li><a class="toctree-l4" href="#summation">Summation</a></li>
+        
+            <li><a class="toctree-l4" href="#subtraction">Subtraction</a></li>
+        
+            <li><a class="toctree-l4" href="#dot-product">Dot product</a></li>
+        
+            <li><a class="toctree-l4" href="#cross-product">Cross Product</a></li>
+        
+            <li><a class="toctree-l4" href="#multiplication-with-a-factor">Multiplication with a factor</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Engine</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Math &raquo;</li>
+        
+      
+    
+    <li>The vector in 3d</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Nachtfeuer/engine/edit/master/docs/vector.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="the-vector-in-3d">The vector in 3d</h3>
+<h4 id="vector-representation">Vector representation</h4>
+<p>The vector coordinates are representated by three
+floats: x, y and z:</p>
+<p><span><span class="MathJax_Preview">\vec{v} = \left(\array{v_x \\ v_y \\ v_z}\right)</span><script type="math/tex">\vec{v} = \left(\array{v_x \\ v_y \\ v_z}\right)</script></span></p>
+<h4 id="length-of-a-vector">Length of a vector</h4>
+<p>The length of a vector is calculated with:</p>
+<p><span><span class="MathJax_Preview">\left|\vec{v}\right| = \sqrt{v_x^2 + v_y^2 + v_z^2}</span><script type="math/tex">\left|\vec{v}\right| = \sqrt{v_x^2 + v_y^2 + v_z^2}</script></span></p>
+<h4 id="summation">Summation</h4>
+<p>It's a summation per coordinate:<br/></p>
+<p><span><span class="MathJax_Preview">\vec{a} + \vec{b} = \left(\array{a_x + b_x \\ a_y + b_y \\ a_z + b_y}\right)</span><script type="math/tex">\vec{a} + \vec{b} = \left(\array{a_x + b_x \\ a_y + b_y \\ a_z + b_y}\right)</script></span></p>
+<p>The implementation is done by overwriting the <strong>__add__</strong> operator which
+allows you to write in code <span><span class="MathJax_Preview">a + b</span><script type="math/tex">a + b</script></span> same way as in the formular.</p>
+<h4 id="subtraction">Subtraction</h4>
+<p>It's a subtraction per coordinate:<br/></p>
+<p><span><span class="MathJax_Preview">\vec{a} - \vec{b} = \left(\array{a_x - b_x \\ a_y - b_y \\ a_z - b_y}\right)</span><script type="math/tex">\vec{a} - \vec{b} = \left(\array{a_x - b_x \\ a_y - b_y \\ a_z - b_y}\right)</script></span></p>
+<p>The implementation is done by overwriting the <strong>__sub__</strong> operator which
+allows you to write in code <span><span class="MathJax_Preview">a - b</span><script type="math/tex">a - b</script></span> same way as in the formular.</p>
+<h4 id="dot-product">Dot product</h4>
+<p>The dot product (also called <strong>scalar product</strong>) is calculated this way:</p>
+<p><span><span class="MathJax_Preview">\vec{a} \cdot \vec{b} = a_x \cdot b_x + a_y \cdot b_y + a_z \cdot b_z</span><script type="math/tex">\vec{a} \cdot \vec{b} = a_x \cdot b_x + a_y \cdot b_y + a_z \cdot b_z</script></span></p>
+<p>The <em>__mul__</em> operater has <strong>not</strong> been overwritten for it because there
+is also a further multiplication: cross product. The method for the dot product
+is <strong>dot_product</strong>.</p>
+<p>There following special properties:</p>
+<ul>
+<li>When <span><span class="MathJax_Preview">\vec{a} \cdot \vec{b} = 0</span><script type="math/tex">\vec{a} \cdot \vec{b} = 0</script></span> then the angle between those two vectors is <span><span class="MathJax_Preview">90^\circ</span><script type="math/tex">90^\circ</script></span></li>
+<li>When the value is negative (&gt; <span><span class="MathJax_Preview">90^\circ</span><script type="math/tex">90^\circ</script></span>) the direction of the one is opposite to the other.
+   That is useful if you consider rendering of an object; the camera does see the object frontside
+   but one or more triangles of the backside are not visible. That can be detected by calculating
+   the dot product of the camera vector and the triangle plane vector; the backside vector has same
+   direction while the frontside vectors should opposite.</li>
+</ul>
+<h4 id="cross-product">Cross Product</h4>
+<p>The cross product is calculated this way (result is again a vector):</p>
+<p><span><span class="MathJax_Preview">\vec{a} \times \vec{b} = \left(\array{a_y \cdot b_z - a_z \cdot b_y \\ a_z \cdot b_x - a_x \cdot b_z \\ a_x \cdot b_y - a_y \cdot b_x}\right)</span><script type="math/tex">\vec{a} \times \vec{b} = \left(\array{a_y \cdot b_z - a_z \cdot b_y \\ a_z \cdot b_x - a_x \cdot b_z \\ a_x \cdot b_y - a_y \cdot b_x}\right)</script></span></p>
+<p>The most simple answer for the meaning: The result vector has <span><span class="MathJax_Preview">90^\circ</span><script type="math/tex">90^\circ</script></span> to both vectors and therefor 
+<span><span class="MathJax_Preview">90^\circ</span><script type="math/tex">90^\circ</script></span> to the plan defined by both vectors.</p>
+<h4 id="multiplication-with-a-factor">Multiplication with a factor</h4>
+<p><span><span class="MathJax_Preview">k \cdot \vec{v} = \left(\array{k \cdot b_x \\ k \cdot b_y \\ k \cdot b_y}\right)</span><script type="math/tex">k \cdot \vec{v} = \left(\array{k \cdot b_x \\ k \cdot b_y \\ k \cdot b_y}\right)</script></span></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Nachtfeuer/engine/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
