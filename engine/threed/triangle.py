@@ -56,3 +56,31 @@ class Triangle:
             bool: True when given vertices are representing a valid triangle.
         """
         return Point() == Point.from_vector(vector_a + vector_b + vector_c)
+
+    @staticmethod
+    def from_points(point_a, point_b, point_c):
+        """
+        Create a triangle from three points.
+
+        Args:
+            point_a(Point): first point of triangle.
+            point_b(Point): second point of triangle.
+            point_c(Point): third point of triangle.
+
+        Returns:
+            Triangle: a triangle created from points.
+
+        Raises:
+            ValueError: when not all vectors have a lenght > 0
+            TypeError: when not all parameters are points
+        """
+        if all(isinstance(point, Point) for point in [point_a, point_b, point_c]):
+            vector_a = point_b - point_a
+            vector_b = point_c - point_b
+            vector_c = point_a - point_c
+
+            if all(vector.length() > 0.0 for vector in [vector_a, vector_b, vector_c]):
+                return Triangle(vector_a, vector_b, vector_c)
+
+            raise ValueError("Not all vectors have a length > 0.0")
+        raise TypeError("Not all parameters are points")
