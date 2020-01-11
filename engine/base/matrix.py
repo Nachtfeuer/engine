@@ -109,7 +109,7 @@ class Matrix:
             for column_idx, column in enumerate(other.columns()):
                 for row_idx, row in enumerate(self.rows()):
                     matrix[row_idx, column_idx] = \
-                        sum([row_val * col_val for row_val, col_val in zip(row, column)])
+                        sum(row_val * col_val for row_val, col_val in zip(row, column))
             return matrix
 
         raise TypeError("You cannot multiply a value of type %s with a matrix" % type(other))
