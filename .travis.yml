@@ -14,6 +14,8 @@ install:
 script:
     - flake8 --max-line-length=100 engine tests
     - pylint --rcfile=pylint.rcfile engine tests
+    - bandit -r engine tests
+    - radon cc --show-complexity --min B engine
     
 notifications:
     email:
