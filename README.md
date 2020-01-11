@@ -7,6 +7,14 @@ A very simple 3D engine
 [![codebeat badge](https://codebeat.co/badges/ddf9af2f-4072-43ab-82ed-f499ecdabbcd)](https://codebeat.co/projects/github-com-nachtfeuer-engine-master)
 [![DeepSource](https://static.deepsource.io/deepsource-badge-light.svg)](https://deepsource.io/gh/Nachtfeuer/engine/?ref=repository-badge)
 
+## Using mkdocs
+
+```
+pip install mkdocs pymdown-extensions
+mkdocs build
+mkdocs serve
+```
+
 ## Links
 
  - https://vvvv.org/documentation/3d-vector-mathematics
