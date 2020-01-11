@@ -8,6 +8,7 @@ python:
 install:
     - pip install pip --upgrade
     - pip install -r requirements.txt
+    - pip install coveralls
     - python -V
     - pip -V
     
@@ -16,7 +17,11 @@ script:
     - pylint --rcfile=pylint.rcfile engine tests
     - bandit -r engine tests
     - radon cc --show-complexity --min B engine
-    
+    - pytest --doctest-modules --cov=engine --cov-branch --cov-fail-under=100 --cov-report=xml --cov-report=term --cov-report=html
+
+after_success:
+    - coveralls
+
 notifications:
     email:
         recipients:
