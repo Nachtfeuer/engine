@@ -49,3 +49,26 @@ class TestTriangle(TestCase):
         point1, point2, point3 = Point(0, 0, 0), Point(1, 0, 0), Point(0, 1, 0)
         vector1, vector2, vector3 = point2-point1, point3-point2, point1-point3
         assert_that(Triangle.is_valid(vector1, vector2, vector3), equal_to(True))
+
+    def test_from_points(self):
+        """Testing of from_points static function."""
+        point1, point2, point3 = Point(0, 0, 0), Point(1, 0, 0), Point(0, 1, 0)
+        triangle = Triangle.from_points(point1, point2, point3)
+
+        assert_that(isinstance(triangle, Triangle), equal_to(True))
+        assert_that(triangle.vectors(), equal_to(
+            [point2 - point1, point3 - point2, point1 - point3]))
+
+        message = "Not all vectors have a length > 0.0"
+        assert_that(calling(Triangle.from_points).with_args(
+            Point(0, 0, 0), Point(0, 0, 0), Point(0, 0, 0)), raises(ValueError, message))
+        assert_that(calling(Triangle.from_points).with_args(
+            Point(0, 0, 0), Point(1, 0, 0), Point(0, 0, 0)), raises(ValueError, message))
+
+        message = "Not all parameters are points"
+        assert_that(calling(Triangle.from_points).with_args(
+            1, 2, 3), raises(TypeError, message))
+        assert_that(calling(Triangle.from_points).with_args(
+            1, 2, Point(0, 1, 0)), raises(TypeError, message))
+        assert_that(calling(Triangle.from_points).with_args(
+            1, Point(1, 0, 0), Point(0, 1, 0)), raises(TypeError, message))
