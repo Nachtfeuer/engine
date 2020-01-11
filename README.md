@@ -1,6 +1,9 @@
 # engine
 A very simple 3D engine
 
+[![Build Status](https://travis-ci.org/Nachtfeuer/engine.svg?branch=master)](https://travis-ci.org/Nachtfeuer/engine)
+[![Coverage Status](https://coveralls.io/repos/github/Nachtfeuer/engine/badge.svg?branch=master)](https://coveralls.io/github/Nachtfeuer/engine?branch=master)
+
 ## Links
 
  - https://vvvv.org/documentation/3d-vector-mathematics
