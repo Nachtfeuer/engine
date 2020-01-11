@@ -13,6 +13,7 @@ install:
     
 script:
     - flake8 --max-line-length=100 engine tests
+    - pylint --rcfile=pylint.rcfile engine tests
     
 notifications:
     email:
