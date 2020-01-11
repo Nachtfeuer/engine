@@ -25,16 +25,16 @@ class Matrix:
 
     def rows(self):
         """
-            Returns:
-                # generator(yield): Provide a copy of the rows.
+        Returns:
+            generator(yield): Provide a copy of the rows.
         """
         for row in self.__data:
             yield row[:]
 
     def columns(self):
         """
-            Returns:
-                generator(yield): Provide a copy of the columns.
+        Returns:
+            generator(yield): Provide a copy of the columns.
         """
         for idx in range(len(self.__data[0])):
             yield [row[idx] for row in self.__data]

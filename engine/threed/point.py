@@ -1,6 +1,4 @@
-"""
-Mathmatical 3d point.
-"""
+"""Mathmatical 3d point."""
 from engine.threed.vector import Vector
 
 

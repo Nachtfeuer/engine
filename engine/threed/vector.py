@@ -1,6 +1,4 @@
-"""
-Mathmatical 3d vector.
-"""
+"""Mathmatical 3d vector."""
 import math
 
 

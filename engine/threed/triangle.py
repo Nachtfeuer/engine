@@ -5,7 +5,8 @@ from engine.threed.point import Point
 
 class Triangle:
     """
-    A Triangle is the smalles plane with three points (internally stored as vertices).
+    A Triangle is the smalles plane with three points
+    (internally stored as vertices).
     """
 
     def __init__(self, vector_a, vector_b, vector_c):
