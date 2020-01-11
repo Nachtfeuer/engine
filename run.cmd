@@ -2,7 +2,7 @@
 set PYTHONPATH=%CD%
 
 rem ensure packages
-rem pip install pytest pytest-cov coverage pytest-randomly pyhamcrest pylint radon bandit flake8
+pip install -r requirements.txt
 
 rem Validating styleguide I
 flake8 --max-line-length=100 engine tests

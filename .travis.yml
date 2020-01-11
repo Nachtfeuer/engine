@@ -1,0 +1,22 @@
+# Travis configuration
+language: python
+
+python:
+    - "3.6"
+    - "pypy3"
+
+install:
+    - pip install pip --upgrade
+    - pip install -r requirements.txt
+    - python -V
+    - pip -V
+    
+script:
+    - flake8 --max-line-length=100 engine tests
+    
+notifications:
+    email:
+        recipients:
+           - thomas.lehmann.private@gmail.com
+        on_success: always
+        on_failure: always
