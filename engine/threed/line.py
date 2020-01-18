@@ -1,6 +1,7 @@
 """Mathmatical 3d line."""
 from engine.threed.point import Point
 from engine.threed.vector import Vector
+from engine.tools.options import Options
 
 
 class Line:
@@ -92,3 +93,36 @@ class Line:
 
         raise TypeError("You can not calculate distance " +
                         "between a line and type %s" % type(obj))
+
+    def has_point(self, point):
+        """
+        Verifies that point is on the line.
+
+        Args:
+            point(Point): point to verify
+
+        Returns:
+            bool: True when point is on the line otherwise false
+
+        Raises:
+            TypeError: when given parameter is not a point
+        """
+        if isinstance(point, Point):
+            return self.distance(point) <= Options.PRECISION
+
+        raise TypeError("Given parameter is not a point")
+
+    def point(self, factor):
+        """
+        Provide point on line by factor (0=start point, 1=end point).
+
+        Args:
+            factor(float or int): the factor to control which point (0=start point, 1=end point).
+
+        Raises:
+            TypeError: when given parameter is not an int or a float
+        """
+        if isinstance(factor, (int, float)):
+            return self.position + self.direction.scaled(factor)
+
+        raise TypeError("Given parameter is not an int or a float")

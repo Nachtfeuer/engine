@@ -75,3 +75,30 @@ class TestLine(TestCase):
         message = "You can not calculate distance between a line and type %s" % type(0)
         assert_that(calling(line.distance).with_args(1234),
                     raises(TypeError, message))
+
+    def test_has_point(self):
+        """Test method 'has_point'."""
+        line = Line(Point(0, 0, 0), Vector(10, 0, 0))
+
+        assert_that(line.has_point(Point(-1, 0, 0)), equal_to(True))
+        assert_that(line.has_point(Point(0, 0, 0)), equal_to(True))
+        assert_that(line.has_point(Point(5, 0, 0)), equal_to(True))
+        assert_that(line.has_point(Point(10, 0, 0)), equal_to(True))
+        assert_that(line.has_point(Point(11, 0, 0)), equal_to(True))
+
+        assert_that(line.has_point(Point(5, 1, 0)), equal_to(False))
+        assert_that(line.has_point(Point(5, -1, 0)), equal_to(False))
+
+        assert_that(calling(line.has_point).with_args(1234),
+                    raises(TypeError, "Given parameter is not a point"))
+
+    def test_point(self):
+        """Test method 'point'."""
+        line = Line(Point(0, 0, 0), Vector(10, 0, 0))
+
+        assert_that(line.point(0), equal_to(Point(0, 0, 0)))
+        assert_that(line.point(0.5), equal_to(Point(5, 0, 0)))
+        assert_that(line.point(1), equal_to(Point(10, 0, 0)))
+
+        assert_that(calling(line.point).with_args("hello"),
+                    raises(TypeError, "Given parameter is not an int or a float"))
