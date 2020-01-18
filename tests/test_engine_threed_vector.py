@@ -110,3 +110,12 @@ class TestVector(TestCase):
         message = "You cannot multiply a value of type %s with a vector" % type("hello")
         assert_that(calling(Vector(1, 2, 3).__mul__).with_args("hello"),
                     raises(TypeError, message))
+
+    def test_projection(self):
+        """Test method 'projection'."""
+        assert_that(Vector(1, 1, 0).projection(Vector(2, 0, 0)),
+                    equal_to(Vector(1, 0, 0)))
+
+        message = "You can not calculate a projection of a vector on a type %s" % type("hello")
+        assert_that(calling(Vector(1, 2, 3).projection).with_args("hello"),
+                    raises(TypeError, message))
