@@ -41,3 +41,11 @@ class TestPoint(TestCase):
         message = "You cannot create a point from a value of type %s" % (type(0))
         assert_that(calling(Point.from_vector).with_args(1234),
                     raises(TypeError, message))
+
+    def test_add(self):
+        """Testing point translation by a vector."""
+        assert_that(Point(1, 9, 11) + Vector(4, 5, 6), equal_to(Point(5, 14, 17)))
+
+        message = "You can not add a value of type %s to a point" % type(0)
+        assert_that(calling(Point(1, 2, 3).__add__).with_args(1234),
+                    raises(TypeError, message))

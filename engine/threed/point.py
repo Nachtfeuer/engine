@@ -41,6 +41,21 @@ class Point:
 
         raise TypeError("You cannot subtract a value of type %s from a point" % type(other))
 
+    def __add__(self, other):
+        """
+        Get translated point.
+
+        Args:
+            other(vector): a vector to add its coordinates to the point.
+
+        Returns:
+            Point: translated point
+        """
+        if isinstance(other, Vector):
+            return Point(self.x + other.x, self.y + other.y, self.z + other.z)
+
+        raise TypeError("You can not add a value of type %s to a point" % type(other))
+
     def __eq__(self, other):
         """
         Args:

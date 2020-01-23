@@ -26,3 +26,4 @@ mkdocs serve
  - https://www.mathsisfun.com/algebra/matrix-multiplying.html 
  - https://en.wikipedia.org/wiki/Rotation_matrix
  - https://docs.travis-ci.com/user/languages/python/
+ - https://en.wikipedia.org/wiki/Vector_projection

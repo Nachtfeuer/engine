@@ -172,6 +172,7 @@ class Vector:
         if isinstance(sequence, (list, tuple)) and len(sequence) == 3:
             x, y, z = sequence
             return Vector(x, y, z)
+
         raise TypeError("Sequence %s cannot be converted into a vector" % str(sequence))
 
     def normalized(self):
@@ -194,3 +195,19 @@ class Vector:
             Vector: each coordinated multiplicated by given factor.
         """
         return Vector(self.x * factor, self.y * factor, self.z * factor)
+
+    def projection(self, other):
+        """
+        Calculate projection "vector on vector".
+
+        Args:
+            other(Vector): the vector to do projection on
+
+        Returns:
+            Vector: Calculated projection.
+        """
+        if isinstance(other, Vector):
+            return other.scaled(self.dot_product(other) / other.dot_product(other))
+
+        raise TypeError("You can not calculate a projection " +
+                        "of a vector on a type %s" % type(other))
