@@ -102,3 +102,11 @@ class TestLine(TestCase):
 
         assert_that(calling(line.point).with_args("hello"),
                     raises(TypeError, "Given parameter is not an int or a float"))
+
+    def test_from_points(self):
+        """Testing static function 'from_points'."""
+        assert_that(Line.from_points(Point(1, 2, 3), Point(4, 5, 6)),
+                    equal_to(Line(Point(1, 2, 3), Vector(3, 3, 3))))
+
+        assert_that(calling(Line.from_points).with_args("hello", "hello"),
+                    raises(TypeError, "Not all given parameter are points"))

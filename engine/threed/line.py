@@ -126,3 +126,23 @@ class Line:
             return self.position + self.direction.scaled(factor)
 
         raise TypeError("Given parameter is not an int or a float")
+
+    @staticmethod
+    def from_points(point_a, point_b):
+        """
+        Create a linne from two points.
+
+        Args:
+            point_a(Point) - start point of line
+            point_b(Point) - end point of line
+
+        Returns:
+            Line: line with position (point) and direction (vector)
+
+        Raises:
+            TypeError: when not all parameters are points
+        """
+        if isinstance(point_a, Point) and isinstance(point_b, Point):
+            return Line(point_a, point_b - point_a)
+
+        raise TypeError("Not all given parameter are points")
