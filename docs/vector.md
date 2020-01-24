@@ -60,6 +60,9 @@ The cross product is calculated this way (result is again a vector):
 The most simple answer for the meaning: The result vector has $90^\circ$ to both vectors and therefor 
 $90^\circ$ to the plan defined by both vectors.
 
+Please also note that $\vec{a} \times \vec{a} = \left(\array{0 \\ 0 \\ 0}\right)$. This property
+is (as an example) very useful when calculating the intersection point between two lines.
+
 ## Multiplication with a factor
 
 $k \cdot \vec{v} = \left(\array{k \cdot b_x \\ k \cdot b_y \\ k \cdot b_y}\right)$
