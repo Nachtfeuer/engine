@@ -176,3 +176,9 @@ class TestMatrix(TestCase):
                     "y value was %g instead of %s" % (matrix_final[0, 1], vector.z))
         assert_that(abs(matrix_final[0, 2] - vector.y), less_than_or_equal_to(Options.PRECISION),
                     "z value was %g instead of %s" % (matrix_final[0, 2], vector.y))
+
+    def test_repr(self):
+        """Test __repr__ method."""
+        matrix = Matrix.from_sequence([[1, 2, 3], [4, 5, 6]])
+        expected_string = "Matrix([[1, 2, 3], [4, 5, 6]])"
+        assert_that(str(matrix), equal_to(expected_string))

@@ -146,3 +146,38 @@ class Line:
             return Line(point_a, point_b - point_a)
 
         raise TypeError("Not all given parameter are points")
+
+    def intersection(self, other):
+        """
+        Calculate intersection between two lines.
+
+        Args:
+            other(Line): another line to find intersection point.
+
+        Returns:
+            Point: found intersection point or None if not found.
+
+        Raises:
+            TypeError: when given parameter is not a line.
+
+        Note:
+            The method does not check whether a found point lies inbetween
+            the start point and end point of the line.
+        """
+        if isinstance(other, Line):
+            # p1 + a * v1 = p2 + b * v2         | - p1
+            #      a * v1 = (p2 - p1) + b * v2  | x v2
+            # a * v1 x v2 = (p2 - p1) x v2
+            vector_a = self.direction.cross_product(other.direction)
+            vector_b = (other.position - self.position).cross_product(other.direction)
+
+            if abs(vector_a.x) > Options.PRECISION:
+                return self.point(vector_b.x / vector_a.x)
+            if abs(vector_a.y) > Options.PRECISION:
+                return self.point(vector_b.y / vector_a.y)
+            if abs(vector_a.z) > Options.PRECISION:
+                return self.point(vector_b.z / vector_a.z)
+
+            return None
+
+        raise TypeError("Given parameter is not a line")

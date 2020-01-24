@@ -14,6 +14,13 @@ class Matrix:
                 row.append(0.0)
             self.__data.append(row)
 
+    def __repr__(self):
+        """
+        Returns:
+            str: internal representation of the matrix data.
+        """
+        return "Matrix(%s)" % self.__data
+
     def shape(self):
         """
         Dimension of the matrix
