@@ -110,3 +110,30 @@ class TestLine(TestCase):
 
         assert_that(calling(Line.from_points).with_args("hello", "hello"),
                     raises(TypeError, "Not all given parameter are points"))
+
+    def test_intersection_succeeds(self):
+        """Testing method 'intersection'"""
+        # lines on xy plane
+        line_a = Line.from_points(Point(0, 0, 0), Point(10, 0, 0))
+        line_b = Line.from_points(Point(5, -4, 0), Point(5, +4, 0))
+        assert_that(line_a.intersection(line_b), equal_to(Point(5, 0, 0)))
+
+        # lines on yz plane
+        line_a = Line.from_points(Point(0, 0, 0), Point(0, 0, 10))
+        line_b = Line.from_points(Point(0, -4, 5), Point(0, +4, 5))
+        assert_that(line_a.intersection(line_b), equal_to(Point(0, 0, 5)))
+
+        # lines on xz plane
+        line_a = Line.from_points(Point(0, 0, 0), Point(0, 0, 10))
+        line_b = Line.from_points(Point(-4, 0, 5), Point(+4, 0, 5))
+        assert_that(line_a.intersection(line_b), equal_to(Point(0, 0, 5)))
+
+    def test_intersection_fails(self):
+        """Testing method 'intersection'"""
+        # parallel line does not intersect
+        line_a = Line.from_points(Point(0, 0, 0), Point(10, 0, 0))
+        line_b = Line.from_points(Point(0, 1, 0), Point(10, 1, 0))
+        assert_that(line_a.intersection(line_b), equal_to(None))
+
+        assert_that(calling(Line.intersection).with_args(None, "hello"),
+                    raises(TypeError, "Given parameter is not a line"))
