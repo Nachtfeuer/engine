@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Thomas Lehmann <thomas.lehmann.private@gmail.com">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>The line in 3d - Engine</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "The line in 3d";
+    var mkdocs_page_input_path = "line.md";
+    var mkdocs_page_url = "/engine/line/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Engine</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Math</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../vector/">The vector in 3d</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">The line in 3d</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#the-line-in-3d">The line in 3d</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#line-representation">Line representation</a></li>
+        
+            <li><a class="toctree-l4" href="#angle-between-lines">Angle between lines</a></li>
+        
+            <li><a class="toctree-l4" href="#intersection-point-of-two-lines">Intersection point of two lines</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Engine</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Math &raquo;</li>
+        
+      
+    
+    <li>The line in 3d</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Nachtfeuer/engine/edit/master/docs/line.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="the-line-in-3d">The line in 3d</h3>
+<h4 id="line-representation">Line representation</h4>
+<p>The line can be defined as a point and a direction like following:</p>
+<p><span><span class="MathJax_Preview">l = \left(\array{p_x \\ p_y \\ p_z}\right) + k \cdot \left(\array{v_x \\ v_y \\ v_z}\right)</span><script type="math/tex">l = \left(\array{p_x \\ p_y \\ p_z}\right) + k \cdot \left(\array{v_x \\ v_y \\ v_z}\right)</script></span></p>
+<p>For <span><span class="MathJax_Preview">k = 0</span><script type="math/tex">k = 0</script></span> it is the start point of the line and for <span><span class="MathJax_Preview">k = 1</span><script type="math/tex">k = 1</script></span> it is the end point of the line.</p>
+<h4 id="angle-between-lines">Angle between lines</h4>
+<p>The calculation of the angle is related to the direction vectors of
+both lines which you find in vector documention.</p>
+<h4 id="intersection-point-of-two-lines">Intersection point of two lines</h4>
+<p>First to say it's more likely in 3d space that two lines do not intersect while
+in 2d the only case where to lines do not intersect is when they are parallel.
+However the calculation is not too hard considering following approach:</p>
+<ul>
+<li>First we have two lines as shown in line representation but with two different factors
+   which should provide us the same point when there is an intersection so we can say:
+   <span><span class="MathJax_Preview">p1 + a \cdot \vec{v1} = p2 + b \cdot \vec{v2}</span><script type="math/tex">p1 + a \cdot \vec{v1} = p2 + b \cdot \vec{v2}</script></span><br>
+   First we do is we subtract p1 on both sides.</li>
+<li><span><span class="MathJax_Preview">a \cdot \vec{v1} = p2 - p1 + b \cdot \vec{v2}</span><script type="math/tex">a \cdot \vec{v1} = p2 - p1 + b \cdot \vec{v2}</script></span><br>
+   Now we apply cross product <span><span class="MathJax_Preview">\vec{v2}</span><script type="math/tex">\vec{v2}</script></span> on both sides.</li>
+<li><span><span class="MathJax_Preview">a \cdot \vec{v1} \times \vec{v2} = (p2 - p1) \times \vec{v2}</span><script type="math/tex">a \cdot \vec{v1} \times \vec{v2} = (p2 - p1) \times \vec{v2}</script></span><br>
+   The <span><span class="MathJax_Preview">b \cdot \vec{v2}</span><script type="math/tex">b \cdot \vec{v2}</script></span> did go away because the cross product with same vector
+   is the null vector.</li>
+<li>From programming perspective you now have to consider that two lines
+   can refer - as special cases - to a plane where one dimension might go away.
+   As a result you have three ways how to calculate the factor <span><span class="MathJax_Preview">a</span><script type="math/tex">a</script></span>:<ul>
+<li>First: we define <span><span class="MathJax_Preview">\vec{v3} = \vec{v1} \times \vec{v2}</span><script type="math/tex">\vec{v3} = \vec{v1} \times \vec{v2}</script></span> and <span><span class="MathJax_Preview">\vec{v4} = (p2 - p1) \times \vec{v2}</span><script type="math/tex">\vec{v4} = (p2 - p1) \times \vec{v2}</script></span></li>
+<li>Solution 1: <span><span class="MathJax_Preview">a = v4_x / v3_x</span><script type="math/tex">a = v4_x / v3_x</script></span> (when <span><span class="MathJax_Preview">v3_x</span><script type="math/tex">v3_x</script></span> is not 0)</li>
+<li>Solution 2: <span><span class="MathJax_Preview">a = v4_y / v3_y</span><script type="math/tex">a = v4_y / v3_y</script></span> (when <span><span class="MathJax_Preview">v3_y</span><script type="math/tex">v3_y</script></span> is not 0)</li>
+<li>Solution 3: <span><span class="MathJax_Preview">a = v4_z / v3_z</span><script type="math/tex">a = v4_z / v3_z</script></span> (when <span><span class="MathJax_Preview">v3_z</span><script type="math/tex">v3_z</script></span> is not 0)</li>
+<li>If no solution does match then there is no intersection point otherwise you now can
+    use first line <span><span class="MathJax_Preview">p1 + a \cdot \vec{v1}</span><script type="math/tex">p1 + a \cdot \vec{v1}</script></span> to calculate the intersection point.</li>
+</ul>
+</li>
+</ul>
+<p>For the basic idea thank you very much to the great guys here:
+    <a href="http://mathforum.org/library/drmath/view/62814.html">http://mathforum.org/library/drmath/view/62814.html</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../vector/" class="btn btn-neutral" title="The vector in 3d"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Nachtfeuer/engine/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../vector/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
