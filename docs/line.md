@@ -4,7 +4,7 @@
 
 The line can be defined as a point and a direction like following:
 
-$l = \left(\array{p_x \\ p_y \\ p_z}\right) + k \cdot \left(\array{v_x \\ v_y \\ v_z}\right)$
+$line = \left(\array{p_x \\ p_y \\ p_z}\right) + k \cdot \left(\array{v_x \\ v_y \\ v_z}\right)$
 
 For $k = 0$ it is the start point of the line and for $k = 1$ it is the end point of the line.
 
