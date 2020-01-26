@@ -6,7 +6,7 @@ A very simple 3D engine
 [![Coverage Status](https://coveralls.io/repos/github/Nachtfeuer/engine/badge.svg?branch=master)](https://coveralls.io/github/Nachtfeuer/engine?branch=master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Nachtfeuer/engine?branch=master)](https://bettercodehub.com/)
 [![codebeat badge](https://codebeat.co/badges/ddf9af2f-4072-43ab-82ed-f499ecdabbcd)](https://codebeat.co/projects/github-com-nachtfeuer-engine-master)
-[![DeepSource](https://static.deepsource.io/deepsource-badge-light.svg)](https://deepsource.io/gh/Nachtfeuer/engine/?ref=repository-badge)
+[![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gh/Nachtfeuer/engine/?ref=repository-badge)
 
 ## Using mkdocs
 
