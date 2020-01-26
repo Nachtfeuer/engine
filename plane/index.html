@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Thomas Lehmann <thomas.lehmann.private@gmail.com">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>The Plane in 3d - Engine</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "The Plane in 3d";
+    var mkdocs_page_input_path = "plane.md";
+    var mkdocs_page_url = "/engine/plane/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Engine</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Math</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../vector/">The vector in 3d</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../line/">The line in 3d</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">The Plane in 3d</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#the-plane-in-3d">The Plane in 3d</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#plane-representation">Plane representation</a></li>
+        
+            <li><a class="toctree-l4" href="#intersection-point-of-a-line-with-a-plane">Intersection point of a line with a plane</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Engine</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Math &raquo;</li>
+        
+      
+    
+    <li>The Plane in 3d</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Nachtfeuer/engine/edit/master/docs/plane.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="the-plane-in-3d">The Plane in 3d</h3>
+<h4 id="plane-representation">Plane representation</h4>
+<p>The plane can be defined as a point and two directions like following:</p>
+<p><span><span class="MathJax_Preview">plane = \left(\array{p_x \\ p_y \\ p_z}\right) + a \cdot \left(\array{v1_x \\ v1_y \\ v1_z}\right) + b \cdot \left(\array{v2_x \\ v2_y \\ v2_z}\right)</span><script type="math/tex">plane = \left(\array{p_x \\ p_y \\ p_z}\right) + a \cdot \left(\array{v1_x \\ v1_y \\ v1_z}\right) + b \cdot \left(\array{v2_x \\ v2_y \\ v2_z}\right)</script></span></p>
+<p>Following factor rules apply:</p>
+<ul>
+<li>For <span><span class="MathJax_Preview">a = 0</span><script type="math/tex">a = 0</script></span> and <span><span class="MathJax_Preview">b = 0</span><script type="math/tex">b = 0</script></span> we have just the point <span><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span>.</li>
+<li>For <span><span class="MathJax_Preview">a = 1</span><script type="math/tex">a = 1</script></span> and <span><span class="MathJax_Preview">b = 0</span><script type="math/tex">b = 0</script></span> we the <span><span class="MathJax_Preview">p1 + \vec{v1}</span><script type="math/tex">p1 + \vec{v1}</script></span>.</li>
+<li>For <span><span class="MathJax_Preview">a = 0</span><script type="math/tex">a = 0</script></span> and <span><span class="MathJax_Preview">b = 1</span><script type="math/tex">b = 1</script></span> we the <span><span class="MathJax_Preview">p1 + \vec{v2}</span><script type="math/tex">p1 + \vec{v2}</script></span>.</li>
+<li>For <span><span class="MathJax_Preview">a = 1</span><script type="math/tex">a = 1</script></span> and <span><span class="MathJax_Preview">b = 1</span><script type="math/tex">b = 1</script></span> we the <span><span class="MathJax_Preview">p1 + \vec{v1} + \vec{v2}</span><script type="math/tex">p1 + \vec{v1} + \vec{v2}</script></span>.</li>
+<li>For <span><span class="MathJax_Preview">a = 0.5</span><script type="math/tex">a = 0.5</script></span> and <span><span class="MathJax_Preview">b = 0.5</span><script type="math/tex">b = 0.5</script></span> we have the center point. </li>
+</ul>
+<h4 id="intersection-point-of-a-line-with-a-plane">Intersection point of a line with a plane</h4>
+<p>Calculation works in follwing steps:</p>
+<ul>
+<li>We define a line L to be equal to plane P as following:<br>
+   <span><span class="MathJax_Preview">p1 + a \cdot \vec{v1} = p2 + b \cdot \vec{v2} + c \cdot \vec{v3}</span><script type="math/tex">p1 + a \cdot \vec{v1} = p2 + b \cdot \vec{v2} + c \cdot \vec{v3}</script></span><br>
+   When there is a solution we should have values for the three factors.
+   So we should get rid of two factors to be able to calculate one.
+   We start with it subtracting the point <span><span class="MathJax_Preview">p1</span><script type="math/tex">p1</script></span> on both sides.</li>
+<li><span><span class="MathJax_Preview">a \cdot \vec{v1} = (p2 - p1) + b \cdot \vec{v2} + c \cdot \vec{v3}</span><script type="math/tex">a \cdot \vec{v1} = (p2 - p1) + b \cdot \vec{v2} + c \cdot \vec{v3}</script></span><br>
+   Now we do a cross product with <span><span class="MathJax_Preview">v3</span><script type="math/tex">v3</script></span> on both sides; that does eliminate last term because
+   a <span><span class="MathJax_Preview">\vec{v3} \times \vec{v3}</span><script type="math/tex">\vec{v3} \times \vec{v3}</script></span> is the null vector.</li>
+<li><span><span class="MathJax_Preview">a \cdot \vec{v1} \times \vec{v3} = (p2 - p1) \times \vec{v3} + b \cdot \vec{v2} \times \vec{v3}</span><script type="math/tex">a \cdot \vec{v1} \times \vec{v3} = (p2 - p1) \times \vec{v3} + b \cdot \vec{v2} \times \vec{v3}</script></span><br>
+   Again we use the same <em>trick</em> to elimate last term by applying a cross product
+   of <span><span class="MathJax_Preview">\vec{v2} \times \vec{v3}</span><script type="math/tex">\vec{v2} \times \vec{v3}</script></span> on both sides.</li>
+<li><span><span class="MathJax_Preview">a \cdot (\vec{v1} \times \vec{v3}) \times (\vec{v2} \times \vec{v3}) = ((p2 - p1) \times \vec{v3}) \times (\vec{v2} \times \vec{v3})</span><script type="math/tex">a \cdot (\vec{v1} \times \vec{v3}) \times (\vec{v2} \times \vec{v3}) = ((p2 - p1) \times \vec{v3}) \times (\vec{v2} \times \vec{v3})</script></span><br>
+   Before we can run the final logic we should have two vectors:<ul>
+<li><span><span class="MathJax_Preview">\vec{v4} = (\vec{v1} \times \vec{v3}) \times (\vec{v2} \times \vec{v3})</span><script type="math/tex">\vec{v4} = (\vec{v1} \times \vec{v3}) \times (\vec{v2} \times \vec{v3})</script></span></li>
+<li><span><span class="MathJax_Preview">\vec{v5} = ((p2 - p1) \times \vec{v3}) \times (\vec{v2} \times \vec{v3})</span><script type="math/tex">\vec{v5} = ((p2 - p1) \times \vec{v3}) \times (\vec{v2} \times \vec{v3})</script></span></li>
+</ul>
+</li>
+<li>As a result you have three ways how to calculate the factor <span><span class="MathJax_Preview">a</span><script type="math/tex">a</script></span>:<ul>
+<li>Solution 1: <span><span class="MathJax_Preview">a = v5_x / v4_x</span><script type="math/tex">a = v5_x / v4_x</script></span> (when <span><span class="MathJax_Preview">v4_x</span><script type="math/tex">v4_x</script></span> is not 0)</li>
+<li>Solution 2: <span><span class="MathJax_Preview">a = v5_y / v4_y</span><script type="math/tex">a = v5_y / v4_y</script></span> (when <span><span class="MathJax_Preview">v4_y</span><script type="math/tex">v4_y</script></span> is not 0)</li>
+<li>Solution 3: <span><span class="MathJax_Preview">a = v5_z / v4_z</span><script type="math/tex">a = v5_z / v4_z</script></span> (when <span><span class="MathJax_Preview">v4_z</span><script type="math/tex">v4_z</script></span> is not 0)</li>
+<li>If no solution does match then there is no intersection point otherwise you now can
+    use first line <span><span class="MathJax_Preview">p1 + a \cdot \vec{v1}</span><script type="math/tex">p1 + a \cdot \vec{v1}</script></span> to calculate the intersection point.</li>
+</ul>
+</li>
+</ul>
+<p>You are able to see whether the point is between start and end point of line (for <span><span class="MathJax_Preview">0.0 &lt;= a &lt;= 1.0</span><script type="math/tex">0.0 <= a <= 1.0</script></span>) 
+but you would have to calculate <span><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span> and <span><span class="MathJax_Preview">c</span><script type="math/tex">c</script></span> to know same for plane.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../line/" class="btn btn-neutral" title="The line in 3d"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Nachtfeuer/engine/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../line/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
