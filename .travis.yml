@@ -20,6 +20,17 @@ matrix:
             - pip -V
           env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
 
+        - name: Python 3.8.1 on Windows
+          os: windows
+          language: shell
+          install:
+            - choco install python --version 3.8.1
+            - pip install -r requirements.txt
+            - pip install coveralls
+            - python -V
+            - pip -V
+          env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+
 install:
     - pip install pip --upgrade
     - pip install -r requirements.txt
