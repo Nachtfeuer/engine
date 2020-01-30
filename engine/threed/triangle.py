@@ -1,86 +1,41 @@
 """Module triangle."""
-from engine.threed.vector import Vector
 from engine.threed.point import Point
 
 
 class Triangle:
     """
-    A Triangle is the smalles plane with three points
-    (internally stored as vertices).
+    A Triangle is the smalles plane with three points.
+
+    >>> Triangle(Point(1, 2, 3), Point(4, 5, 6),Point(7, 8, 9))
+    Triangle(Point(x=1, y=2, z=3), Point(x=4, y=5, z=6), Point(x=7, y=8, z=9))
     """
 
-    def __init__(self, vector_a, vector_b, vector_c):
+    def __init__(self, point_a, point_b, point_c):
         """
-        Initializing triangle with three vertices.
+        Initializing triangle with three points.
 
         Args:
-            vector_a(Vector): first vector of triangle.
-            vector_b(Vector): second vector of triangle.
-            vector_c(Vector): third vector of triangle.
+            point_a(Point): first point of triangle.
+            point_b(Point): second point of triangle.
+            point_c(Point): third point of triangle.
         """
-        if all(isinstance(entry, Vector) for entry in [vector_a, vector_b, vector_c]):
-            if Triangle.is_valid(vector_a, vector_b, vector_c):
-                self.__vector_a = vector_a
-                self.__vector_b = vector_b
-                self.__vector_c = vector_c
-            else:
-                raise ValueError("Given vectors do not represent a closed triangle")
+        if all(isinstance(entry, Point) for entry in [point_a, point_b, point_c]):
+            self.__point_a = point_a
+            self.__point_b = point_b
+            self.__point_c = point_c
         else:
-            raise TypeError("Not all parameters are of type %s" % type(Vector))
+            raise TypeError("Not all parameters are of type %s" % type(Point))
 
-    def vectors(self):
+    def points(self):
         """
         Returns:
-            list<Vector>: provides the three vectors.
+            list<Point>: provides the three points.
         """
-        return [self.__vector_a, self.__vector_b, self.__vector_c]
+        return [self.__point_a, self.__point_b, self.__point_c]
 
     def __repr__(self):
         """
         Returns:
             str: readable representation of the values of this class.
         """
-        return "Triangle(%s, %s, %s)" % (self.__vector_a, self.__vector_b, self.__vector_c)
-
-    @staticmethod
-    def is_valid(vector_a, vector_b, vector_c):
-        """
-        Verifying that given vertices represent a closed triangle.
-
-        Args:
-            vector_a(Vector): first vector of triangle.
-            vector_b(Vector): second vector of triangle.
-            vector_c(Vector): third vector of triangle.
-
-        Returns:
-            bool: True when given vertices are representing a valid triangle.
-        """
-        return Point() == Point.from_vector(vector_a + vector_b + vector_c)
-
-    @staticmethod
-    def from_points(point_a, point_b, point_c):
-        """
-        Create a triangle from three points.
-
-        Args:
-            point_a(Point): first point of triangle.
-            point_b(Point): second point of triangle.
-            point_c(Point): third point of triangle.
-
-        Returns:
-            Triangle: a triangle created from points.
-
-        Raises:
-            ValueError: when not all vectors have a lenght > 0
-            TypeError: when not all parameters are points
-        """
-        if all(isinstance(point, Point) for point in [point_a, point_b, point_c]):
-            vector_a = point_b - point_a
-            vector_b = point_c - point_b
-            vector_c = point_a - point_c
-
-            if all(vector.length() > 0.0 for vector in [vector_a, vector_b, vector_c]):
-                return Triangle(vector_a, vector_b, vector_c)
-
-            raise ValueError("Not all vectors have a length > 0.0")
-        raise TypeError("Not all parameters are points")
+        return "Triangle(%s, %s, %s)" % (self.__point_a, self.__point_b, self.__point_c)

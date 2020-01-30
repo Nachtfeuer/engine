@@ -87,3 +87,42 @@ class TestPlane(TestCase):
 
         assert_that(calling(Plane.intersection).with_args(None, "hello"),
                     raises(TypeError, "Given parameter is not a line"))
+
+    def test_has_point_succeeds(self):
+        """Testing method 'has_point' to succeed."""
+        # xy plane
+        plane = Plane(Point(0, 0, 0), Vector(0, 10, 0), Vector(10, 0, 0))
+        assert_that(plane.has_point(Point(5, 5, 0)), equal_to(True))
+        plane = Plane(Point(0, 0, 0), Vector(10, 0, 0), Vector(0, 10, 0))
+        assert_that(plane.has_point(Point(5, 5, 0)), equal_to(True))
+        # xz plane
+        plane = Plane(Point(0, 0, 0), Vector(10, 0, 0), Vector(0, 0, 10))
+        assert_that(plane.has_point(Point(5, 0, 5)), equal_to(True))
+        plane = Plane(Point(0, 0, 0), Vector(0, 0, 10), Vector(10, 0, 0))
+        assert_that(plane.has_point(Point(5, 0, 5)), equal_to(True))
+        # yz plane
+        plane = Plane(Point(0, 0, 0), Vector(0, 10, 0), Vector(0, 0, 10))
+        assert_that(plane.has_point(Point(0, 5, 5)), equal_to(True))
+        plane = Plane(Point(0, 0, 0), Vector(0, 0, 10), Vector(0, 10, 0))
+        assert_that(plane.has_point(Point(0, 5, 5)), equal_to(True))
+
+    def test_has_point_fails(self):
+        """Testing method 'has_point' to fail."""
+        # xy plane
+        plane = Plane(Point(0, 0, 0), Vector(0, 10, 0), Vector(10, 0, 0))
+        assert_that(plane.has_point(Point(5, 5, 5)), equal_to(False))
+        plane = Plane(Point(0, 0, 0), Vector(10, 0, 0), Vector(0, 10, 0))
+        assert_that(plane.has_point(Point(5, 5, 5)), equal_to(False))
+        # xz plane
+        plane = Plane(Point(0, 0, 0), Vector(10, 0, 0), Vector(0, 0, 10))
+        assert_that(plane.has_point(Point(5, 1, 5)), equal_to(False))
+        plane = Plane(Point(0, 0, 0), Vector(0, 0, 10), Vector(10, 0, 0))
+        assert_that(plane.has_point(Point(5, 1, 5)), equal_to(False))
+        # yz plane
+        plane = Plane(Point(0, 0, 0), Vector(0, 10, 0), Vector(0, 0, 10))
+        assert_that(plane.has_point(Point(1, 5, 5)), equal_to(False))
+        plane = Plane(Point(0, 0, 0), Vector(0, 0, 10), Vector(0, 10, 0))
+        assert_that(plane.has_point(Point(1, 5, 5)), equal_to(False))
+
+        assert_that(calling(Plane.has_point).with_args(None, "hello"),
+                    raises(TypeError, "Given parameter is not a point"))

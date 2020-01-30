@@ -117,3 +117,65 @@ class Plane:
             return None
 
         raise TypeError("Given parameter is not a line")
+
+    def has_point(self, point, exact_match=True):
+        """
+        Args:
+            point(Point): point to check to be on the plane.
+            exact_match(bool): when true (default) both factors have to be in range(0.0..1.0)
+
+        Returns:
+            bool: True when point is on the plane.
+        """
+        if isinstance(point, Point):
+            # p1      = p2 + a * v1 + b * v2   | -p2
+            # p1 - p2 =      a * v1 + b * v2
+            # 1) -b * v2
+            #     (p1 - p2) - b * v2 = a * v1      | x v2
+            #     (p1 - p2) x v2     = a * v1 x v2
+            # 2) -a * v1
+            #     (p1 - p2) - a * v1 = b * v2      | x v1
+            #     (p1 - p2) x v1     = b * v2 x v1
+            vector_a = (point - self.position).cross_product(self.direction_b)
+            vector_b = self.direction_a.cross_product(self.direction_b)
+
+            factor_a = self.__factor_check(vector_a, vector_b)
+            if factor_a is not None:
+                vector_c = (point - self.position).cross_product(self.direction_a)
+                vector_d = self.direction_b.cross_product(self.direction_a)
+
+                factor_b = self.__factor_check(vector_c, vector_d)
+                return not exact_match or \
+                    (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0)
+
+            return False
+        raise TypeError("Given parameter is not a point")
+
+    @staticmethod
+    def __factor_check(vector_a, vector_b):
+        """
+        Args:
+            vector_a(Vector): first vector
+            vector_b(Vector): second vector to use for division
+
+        Returns:
+            tuple(float, bool): factor and True when the factor is valid
+        """
+        factor = None
+
+        if abs(vector_b.x) > Options.PRECISION:
+            factor = vector_a.x / vector_b.x
+        elif not vector_a.x == vector_b.x:
+            return None
+
+        if abs(vector_b.y) > Options.PRECISION:
+            factor = vector_a.y / vector_b.y
+        elif not vector_a.y == vector_b.y:
+            return None
+
+        if abs(vector_b.z) > Options.PRECISION:
+            factor = vector_a.z / vector_b.z
+        elif not vector_b.z == vector_a.z:
+            return None
+
+        return factor

@@ -3,7 +3,6 @@
 from unittest import TestCase
 from hamcrest import assert_that, equal_to, calling, raises
 
-from engine.threed.vector import Vector
 from engine.threed.point import Point
 from engine.threed.triangle import Triangle
 
@@ -14,61 +13,30 @@ class TestTriangle(TestCase):
     def test_init_constructor(self):
         """Testing of init constructor."""
         point1, point2, point3 = Point(0, 0, 0), Point(1, 0, 0), Point(0, 1, 0)
-        vector1, vector2, vector3 = point2-point1, point3-point2, point1-point3
-        triangle = Triangle(vector1, vector2, vector3)
+        triangle = Triangle(point1, point2, point3)
 
-        assert_that(len(triangle.vectors()), equal_to(3))
-        assert_that(triangle.vectors()[0], equal_to(vector1))
-        assert_that(triangle.vectors()[1], equal_to(vector2))
-        assert_that(triangle.vectors()[2], equal_to(vector3))
+        assert_that(len(triangle.points()), equal_to(3))
+        assert_that(triangle.points()[0], equal_to(point1))
+        assert_that(triangle.points()[1], equal_to(point2))
+        assert_that(triangle.points()[2], equal_to(point3))
 
-        message = "Not all parameters are of type %s" % type(Vector)
+        message = "Not all parameters are of type %s" % type(Point)
         assert_that(calling(Triangle.__init__).with_args(None, 1, 2, 3),
                     raises(TypeError, message))
-        assert_that(calling(Triangle.__init__).with_args(None, vector1, 2, 3),
+        assert_that(calling(Triangle.__init__).with_args(None, point1, 2, 3),
                     raises(TypeError, message))
-        assert_that(calling(Triangle.__init__).with_args(None, vector1, vector2, 3),
+        assert_that(calling(Triangle.__init__).with_args(None, point1, point2, 3),
                     raises(TypeError, message))
-
-        message = "Given vectors do not represent a closed triangle"
-        assert_that(calling(Triangle.__init__).with_args(
-            None, Vector(1, 1, 1), Vector(1, 1, 1), Vector(1, 1, 1)),
-                    raises(ValueError, message))
 
     def test_repr(self):
         """Testing of __repr__ method."""
         point1, point2, point3 = Point(0, 0, 0), Point(1, 0, 0), Point(0, 1, 0)
-        vector1, vector2, vector3 = point2-point1, point3-point2, point1-point3
-        triangle = Triangle(vector1, vector2, vector3)
+        triangle = Triangle(point1, point2, point3)
 
-        expected_str = "Triangle(%s, %s, %s)" % (vector1, vector2, vector3)
+        expected_str = "Triangle(%s, %s, %s)" % (point1, point2, point3)
         assert_that(str(triangle), equal_to(expected_str))
 
-    def test_is_valid(self):
-        """Testing of is_valid static function."""
-        point1, point2, point3 = Point(0, 0, 0), Point(1, 0, 0), Point(0, 1, 0)
-        vector1, vector2, vector3 = point2-point1, point3-point2, point1-point3
-        assert_that(Triangle.is_valid(vector1, vector2, vector3), equal_to(True))
-
-    def test_from_points(self):
-        """Testing of from_points static function."""
-        point1, point2, point3 = Point(0, 0, 0), Point(1, 0, 0), Point(0, 1, 0)
-        triangle = Triangle.from_points(point1, point2, point3)
-
-        assert_that(isinstance(triangle, Triangle), equal_to(True))
-        assert_that(triangle.vectors(), equal_to(
-            [point2 - point1, point3 - point2, point1 - point3]))
-
-        message = "Not all vectors have a length > 0.0"
-        assert_that(calling(Triangle.from_points).with_args(
-            Point(0, 0, 0), Point(0, 0, 0), Point(0, 0, 0)), raises(ValueError, message))
-        assert_that(calling(Triangle.from_points).with_args(
-            Point(0, 0, 0), Point(1, 0, 0), Point(0, 0, 0)), raises(ValueError, message))
-
-        message = "Not all parameters are points"
-        assert_that(calling(Triangle.from_points).with_args(
-            1, 2, 3), raises(TypeError, message))
-        assert_that(calling(Triangle.from_points).with_args(
-            1, 2, Point(0, 1, 0)), raises(TypeError, message))
-        assert_that(calling(Triangle.from_points).with_args(
-            1, Point(1, 0, 0), Point(0, 1, 0)), raises(TypeError, message))
+#    def test_has_point(self):
+#        """Testing of 'has_point' method."""
+#        triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+#        assert_that(triangle.has_point(Point(2, 1, 0)), True)

@@ -45,6 +45,10 @@ class TestVector(TestCase):
         assert_that(calling(Vector(1, 2, 3).__sub__).with_args(1234),
                     raises(TypeError, message))
 
+    def test_negation(self):
+        """Testing of method __neg__."""
+        assert_that(-Vector(1, 2, 3), equal_to(Vector(-1, -2, -3)))
+
     def test_dot_product(self):
         """Testing dot product of two vectors."""
         assert_that(Vector(1, 2, 3).dot_product(Vector(4, 5, 6)), equal_to(32))

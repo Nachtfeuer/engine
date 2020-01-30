@@ -63,6 +63,13 @@ class Vector:
 
         raise TypeError("You cannot add a value of type %s to a vector" % type(other))
 
+    def __neg__(self):
+        """
+        Returns:
+            Vector: negation of current vector.
+        """
+        return Vector(-self.x, -self.y, -self.z)
+
     def __sub__(self, other):
         """
         Args:
