@@ -25,11 +25,11 @@ matrix:
           language: shell
           install:
             - choco install python --version 3.8.1
-            - pip3 install -r requirements.txt
-            - pip3 install coveralls
+            - pip install -r requirements.txt
+            - pip install coveralls
             - python -V
-            - pip3 -V
-          env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+            - pip -V
+          env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 
 install:
     - pip install pip --upgrade
