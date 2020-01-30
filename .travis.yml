@@ -7,6 +7,20 @@ python:
     - "3.8"
     - "pypy3"
 
+matrix:
+    include:
+        - name: Python 3.6.8 on Windows
+          os: windows
+          language: shell
+          install:
+            - choco install python --version 3.6.8
+            - pip install pip --upgrade
+            - pip install -r requirements.txt
+            - pip install coveralls
+            - python -V
+            - pip -V
+          env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+
 install:
     - pip install pip --upgrade
     - pip install -r requirements.txt
