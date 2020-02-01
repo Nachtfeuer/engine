@@ -5,3 +5,4 @@ coverage.xml
 .benchmarks/
 __pycache__/
 site/
+scripts/

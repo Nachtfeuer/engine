@@ -98,6 +98,20 @@ class Vector:
 
         raise TypeError("You cannot multiply a value of type %s with a vector" % type(other))
 
+    def __getitem__(self, index):
+        """
+        Args:
+            index(int): 0 = x, 1 = y, 2 = z
+
+        Returns:
+            float: coordinate at given index.
+        """
+        if isinstance(index, int):
+            if 0 <= index < 3:
+                return [self.x, self.y, self.z][index]
+            raise ValueError("Index out of range (0, 1 or 2 expected)")
+        raise TypeError("Index is not an int")
+
     def dot_product(self, other):
         """
         Args:

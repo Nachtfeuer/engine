@@ -49,6 +49,19 @@ class TestVector(TestCase):
         """Testing of method __neg__."""
         assert_that(-Vector(1, 2, 3), equal_to(Vector(-1, -2, -3)))
 
+    def test_getitem(self):
+        """Testing __getitem__ method."""
+        assert_that(Vector(1, 2, 3)[0], equal_to(1.0))
+        assert_that(Vector(1, 2, 3)[1], equal_to(2.0))
+        assert_that(Vector(1, 2, 3)[2], equal_to(3.0))
+
+        assert_that(calling(Vector(1, 2, 3).__getitem__).with_args("hello"),
+                    raises(TypeError, "Index is not an int"))
+        assert_that(calling(Vector(1, 2, 3).__getitem__).with_args(-1),
+                    raises(ValueError, r"Index out of range \(0, 1 or 2 expected\)"))
+        assert_that(calling(Vector(1, 2, 3).__getitem__).with_args(3),
+                    raises(ValueError, r"Index out of range \(0, 1 or 2 expected\)"))
+
     def test_dot_product(self):
         """Testing dot product of two vectors."""
         assert_that(Vector(1, 2, 3).dot_product(Vector(4, 5, 6)), equal_to(32))

@@ -11,9 +11,15 @@ A very simple 3D engine
 ## Using mkdocs
 
 ```
-pip install mkdocs pymdown-extensions
+pip install mkdocs pymdown-extensions plantuml-markdown
 mkdocs build
 mkdocs serve
+```
+
+If `mkdocs.server` does not work:
+
+```
+python -m http.server
 ```
 
 ## Links
@@ -23,7 +29,7 @@ mkdocs serve
  - https://www.mathsisfun.com/algebra/vectors-dot-product.html
  - https://www.rapidtables.com/convert/number/radians-to-degrees.html
  - https://www.rapidtables.com/convert/number/radians-to-degrees.html
- - https://www.mathsisfun.com/algebra/matrix-multiplying.html 
+ - https://www.mathsisfun.com/algebra/matrix-multiplying.html
  - https://en.wikipedia.org/wiki/Rotation_matrix
  - https://docs.travis-ci.com/user/languages/python/
  - https://en.wikipedia.org/wiki/Vector_projection
