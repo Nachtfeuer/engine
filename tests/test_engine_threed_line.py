@@ -137,3 +137,16 @@ class TestLine(TestCase):
 
         assert_that(calling(Line.intersection).with_args(None, "hello"),
                     raises(TypeError, "Given parameter is not a line"))
+
+
+def test_line_intersect_line_perf(benchmark):
+    """Testing performance of Line.intersection."""
+    line_a = Line.from_points(Point(0, 0, 0), Point(10, 0, 0))
+    line_b = Line.from_points(Point(5, -4, 0), Point(5, +4, 0))
+    benchmark(line_a.intersection, line_b)
+
+
+def test_line_has_point_perf(benchmark):
+    """Testing performance of Line.has_point method."""
+    line = Line(Point(0, 0, 0), Vector(10, 0, 0))
+    benchmark(line.has_point, Point(5, 0, 0))

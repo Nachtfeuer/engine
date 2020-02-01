@@ -126,3 +126,16 @@ class TestPlane(TestCase):
 
         assert_that(calling(Plane.has_point).with_args(None, "hello"),
                     raises(TypeError, "Given parameter is not a point"))
+
+
+def test_plane_intersect_line_perf(benchmark):
+    """Testing performance of plane intersection method."""
+    plane = Plane(Point(0, 0, 0), Vector(10, 0, 0), Vector(0, 10, 0))
+    line = Line(Point(5, 5, -5), Vector(0, 0, 10))
+    benchmark(plane.intersection, line)
+
+
+def test_plane_has_point_perf(benchmark):
+    """Testing performance of plane has_point method."""
+    plane = Plane(Point(0, 0, 0), Vector(0, 10, 0), Vector(10, 0, 0))
+    benchmark(plane.has_point, Point(5, 5, 0))
