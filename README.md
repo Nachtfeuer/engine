@@ -16,11 +16,28 @@ mkdocs build
 mkdocs serve
 ```
 
-If `mkdocs.server` does not work:
+If `mkdocs serve` does not work:
 
 ```
 python -m http.server
 ```
+
+## API Documentation
+
+```
+pip install pdoc3
+pdoc --html -ohtml.docmentation engine
+```
+
+After this open html.documentation/engine/index.html in your browser.
+As an alternative you can do following:
+
+```
+pdoc --http localhost:8000 engine
+```
+
+View http://localhost:8000 in your browser to see the API documentation.
+You might have to use another port if that one is in use.
 
 ## Links
 
@@ -33,3 +50,4 @@ python -m http.server
  - https://en.wikipedia.org/wiki/Rotation_matrix
  - https://docs.travis-ci.com/user/languages/python/
  - https://en.wikipedia.org/wiki/Vector_projection
+ - https://pdoc3.github.io/pdoc/
