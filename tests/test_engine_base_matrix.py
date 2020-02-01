@@ -182,3 +182,10 @@ class TestMatrix(TestCase):
         matrix = Matrix.from_sequence([[1, 2, 3], [4, 5, 6]])
         expected_string = "Matrix([[1, 2, 3], [4, 5, 6]])"
         assert_that(str(matrix), equal_to(expected_string))
+
+
+def test_matrix_mult_perf(benchmark):
+    """Testing performance of matrix multiplication."""
+    matrix_a = Matrix.from_sequence([[1, 2, 3], [4, 5, 6]])
+    matrix_b = Matrix.from_sequence([[7, 8], [9, 10], [11, 12]])
+    benchmark(matrix_a.__mul__, matrix_b)

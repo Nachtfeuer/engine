@@ -136,3 +136,13 @@ class TestVector(TestCase):
         message = "You can not calculate a projection of a vector on a type %s" % type("hello")
         assert_that(calling(Vector(1, 2, 3).projection).with_args("hello"),
                     raises(TypeError, message))
+
+
+def test_cross_product_performance(benchmark):
+    """Testing performance of method cross_product."""
+    benchmark(Vector(2, 3, 4).cross_product, Vector(5, 6, 7))
+
+
+def test_dot_product_performance(benchmark):
+    """Testing performance of method dot_product."""
+    benchmark(Vector(2, 3, 4).dot_product, Vector(5, 6, 7))
