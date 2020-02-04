@@ -142,12 +142,12 @@ class Plane:
             vector_a = (point - self.position).cross_product(self.direction_b)
             vector_b = self.direction_a.cross_product(self.direction_b)
 
-            factor_a = self.__factor_check(vector_a, vector_b)
+            factor_a = Plane.factor_check(vector_a, vector_b)
             if factor_a is not None:
                 vector_c = (point - self.position).cross_product(self.direction_a)
                 vector_d = self.direction_b.cross_product(self.direction_a)
 
-                factor_b = self.__factor_check(vector_c, vector_d)
+                factor_b = Plane.factor_check(vector_c, vector_d)
                 if factor_b is not None:
                     return not exact_match or \
                         (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0)
@@ -156,7 +156,7 @@ class Plane:
         raise TypeError("Given parameter is not a point")
 
     @staticmethod
-    def __factor_check(vector_a: Vector, vector_b: Vector) -> Optional[float]:
+    def factor_check(vector_a: Vector, vector_b: Vector) -> Optional[float]:
         """
         Args:
             vector_a(Vector): first vector

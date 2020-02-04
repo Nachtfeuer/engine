@@ -1,6 +1,7 @@
 """Testing of class Plane."""
 # pylint: disable=no-self-use
 from unittest import TestCase
+from unittest.mock import patch
 from hamcrest import assert_that, equal_to, is_not, calling, raises
 
 from engine.threed.vector import Vector
@@ -123,6 +124,11 @@ class TestPlane(TestCase):
         assert_that(plane.has_point(Point(1, 5, 5)), equal_to(False))
         plane = Plane(Point(0, 0, 0), Vector(0, 0, 10), Vector(0, 10, 0))
         assert_that(plane.has_point(Point(1, 5, 5)), equal_to(False))
+
+        plane = Plane(Point(0, 0, 0), Vector(0, 10, 0), Vector(0, 0, 10))
+        with patch.object(Plane, "factor_check") as mocked_factor_check:
+            mocked_factor_check.side_effect = [0.5, None]
+            assert_that(plane.has_point(Point(1, 5, 5)), equal_to(False))
 
         assert_that(calling(Plane.has_point).with_args(None, "hello"),
                     raises(TypeError, "Given parameter is not a point"))
