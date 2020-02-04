@@ -1,9 +1,11 @@
 """Module matrix."""
+from __future__ import annotations
+from typing import Tuple, List, Generator, Any
 
 
 class Matrix:
     """Managing operations for a matrix."""
-    def __init__(self, initial_rows=2, initial_cols=2):
+    def __init__(self, initial_rows: int = 2, initial_cols: int = 2):
         """Initialize a matrix with given number of rows and columns."""
         self.__data = []
         self.__shape = (initial_rows, initial_cols)
@@ -14,14 +16,14 @@ class Matrix:
                 row.append(0.0)
             self.__data.append(row)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns:
             str: internal representation of the matrix data.
         """
         return "Matrix(%s)" % self.__data
 
-    def shape(self):
+    def shape(self) -> Tuple[int, int]:
         """
         Dimension of the matrix
 
@@ -30,7 +32,7 @@ class Matrix:
         """
         return self.__shape
 
-    def rows(self):
+    def rows(self) -> Generator[Any, Any, Any]:
         """
         Returns:
             generator(yield): Provide a copy of the rows.
@@ -38,7 +40,7 @@ class Matrix:
         for row in self.__data:
             yield row[:]
 
-    def columns(self):
+    def columns(self) -> Generator[Any, Any, Any]:
         """
         Returns:
             generator(yield): Provide a copy of the columns.
@@ -46,7 +48,7 @@ class Matrix:
         for idx in range(len(self.__data[0])):
             yield [row[idx] for row in self.__data]
 
-    def __setitem__(self, index, value):
+    def __setitem__(self, index: Tuple[int, int], value: Any) -> None:
         """
         Args:
             index (tuple): it contains first the row then the column as tuple
@@ -62,7 +64,7 @@ class Matrix:
         row, column = index
         self.__data[row][column] = value
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: Tuple[int, int]) -> Any:
         """
         Args:
             index (tuple): it contains first the row then the column as tuple
@@ -79,7 +81,7 @@ class Matrix:
         return self.__data[row][column]
 
     @staticmethod
-    def from_sequence(sequence):
+    def from_sequence(sequence: List[Any]) -> Matrix:
         """
         Args:
             sequence: the matrix (list of lists, list of tuples, tuple of tuples, ...)
@@ -101,7 +103,7 @@ class Matrix:
 
         return matrix
 
-    def __mul__(self, other):
+    def __mul__(self, other: Matrix) -> Matrix:
         """
         Multiplication between two matrices.
 

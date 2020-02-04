@@ -2,9 +2,11 @@ pytest == 5.3.2
 pytest-cov == 2.8.1
 pytest-randomly == 3.2.0
 pytest-benchmark == 3.2.3
+pytest-sugar == 0.9.2
 coverage == 5.0.1
 pyhamcrest == 1.9.0
 pylint == 2.4.4
 radon == 4.0.0
 bandit == 1.6.2
 flake8 == 3.7.9
+mypy = 0.761

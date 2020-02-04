@@ -1,4 +1,7 @@
 """Module triangle."""
+from __future__ import annotations
+from typing import List
+
 from engine.threed.point import Point
 
 
@@ -10,7 +13,7 @@ class Triangle:
     Triangle(Point(x=1, y=2, z=3), Point(x=4, y=5, z=6), Point(x=7, y=8, z=9))
     """
 
-    def __init__(self, point_a, point_b, point_c):
+    def __init__(self, point_a: Point, point_b: Point, point_c: Point):
         """
         Initializing triangle with three points.
 
@@ -26,14 +29,14 @@ class Triangle:
         else:
             raise TypeError("Not all parameters are of type %s" % type(Point))
 
-    def points(self):
+    def points(self) -> List[Point]:
         """
         Returns:
             list<Point>: provides the three points.
         """
         return [self.__point_a, self.__point_b, self.__point_c]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns:
             str: readable representation of the values of this class.

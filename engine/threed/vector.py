@@ -1,5 +1,7 @@
 """Mathmatical 3d vector."""
+from __future__ import annotations
 import math
+from typing import List, Tuple, Union, Any
 
 
 class Vector:
@@ -12,7 +14,10 @@ class Vector:
     True
     """
 
-    def __init__(self, x=0.0, y=0.0, z=0.0):
+    def __init__(self,
+                 x: Union[int, float] = 0.0,
+                 y: Union[int, float] = 0.0,
+                 z: Union[int, float] = 0.0):
         """
         Args:
             x (float): 3d x coordinates (default: 0.0)
@@ -23,21 +28,21 @@ class Vector:
         self.y = float(y)
         self.z = float(z)
 
-    def length(self):
+    def length(self) -> float:
         """
         Returns:
             float: length of vector
         """
         return math.sqrt(self.x**2 + self.y**2 + self.z**2)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns:
             str: readable representation of the values of this class.
         """
         return "Vector(x=%(x)g, y=%(y)g, z=%(z)g)" % self.__dict__
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """
         Args:
             other(Vector): another vector to use for comparison.
@@ -50,7 +55,7 @@ class Vector:
 
         return False
 
-    def __add__(self, other):
+    def __add__(self, other: Vector) -> Vector:
         """
         Args:
             other(Vector): another vector to use for summation.
@@ -63,14 +68,14 @@ class Vector:
 
         raise TypeError("You cannot add a value of type %s to a vector" % type(other))
 
-    def __neg__(self):
+    def __neg__(self) -> Vector:
         """
         Returns:
             Vector: negation of current vector.
         """
         return Vector(-self.x, -self.y, -self.z)
 
-    def __sub__(self, other):
+    def __sub__(self, other: Vector) -> Vector:
         """
         Args:
             other(Vector): another vector to use for subtraction.
@@ -83,7 +88,7 @@ class Vector:
 
         raise TypeError("You cannot subtract a value of type %s from a vector" % type(other))
 
-    def __mul__(self, other):
+    def __mul__(self, other: Vector) -> Vector:
         """
         Multiply a vector by a factor.
 
@@ -98,7 +103,7 @@ class Vector:
 
         raise TypeError("You cannot multiply a value of type %s with a vector" % type(other))
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> float:
         """
         Args:
             index(int): 0 = x, 1 = y, 2 = z
@@ -112,7 +117,7 @@ class Vector:
             raise ValueError("Index out of range (0, 1 or 2 expected)")
         raise TypeError("Index is not an int")
 
-    def dot_product(self, other):
+    def dot_product(self, other: Vector) -> float:
         """
         Args:
             other(Vector): another vector to use for calculation of dot product.
@@ -126,7 +131,7 @@ class Vector:
         raise TypeError("You cannot calculate a dot product " +
                         "between a vector and type %s" % type(other))
 
-    def cross_product(self, other):
+    def cross_product(self, other: Vector) -> Vector:
         """
         Args:
             other(Vector): another vector to use for calculation of cross product.
@@ -142,7 +147,7 @@ class Vector:
         raise TypeError("You cannot calculate a cross product " +
                         "between a vector and type %s" % type(other))
 
-    def angle(self, other):
+    def angle(self, other: Vector) -> float:
         """
         Args:
             other(Vector): another vector to use for calculation of angle.
@@ -164,14 +169,14 @@ class Vector:
         raise TypeError("You cannot calculate an angle " +
                         "between a vector and type %s" % type(other))
 
-    def to_list(self):
+    def to_list(self) -> List[float]:
         """
         Returns:
             list: a list with three floats representing x, y and z (in that order).
         """
         return [self.x, self.y, self.z]
 
-    def to_tuple(self):
+    def to_tuple(self) -> Tuple[float, float, float]:
         """
         Returns:
             tuple: a tuple with three floats representing x, y and z (in that order).
@@ -179,7 +184,7 @@ class Vector:
         return (self.x, self.y, self.z)
 
     @staticmethod
-    def from_sequence(sequence):
+    def from_sequence(sequence: Any) -> Vector:
         """
         Args:
             sequence (list or tuple): a sequence of ints or floats representing x, y and z.
@@ -196,7 +201,7 @@ class Vector:
 
         raise TypeError("Sequence %s cannot be converted into a vector" % str(sequence))
 
-    def normalized(self):
+    def normalized(self) -> Vector:
         """
         Provided normalized vector (lenght is then 1.0).
 
@@ -205,7 +210,7 @@ class Vector:
         """
         return self.scaled(1.0 / self.length())
 
-    def scaled(self, factor):
+    def scaled(self, factor: Union[int, float]) -> Vector:
         """
         Provide vector scaled by given factor.
 
@@ -217,7 +222,7 @@ class Vector:
         """
         return Vector(self.x * factor, self.y * factor, self.z * factor)
 
-    def projection(self, other):
+    def projection(self, other: Vector) -> Vector:
         """
         Calculate projection "vector on vector".
 

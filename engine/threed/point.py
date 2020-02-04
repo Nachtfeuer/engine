@@ -1,34 +1,40 @@
 """Mathmatical 3d point."""
+from __future__ import annotations
+from typing import Union
+
 from engine.threed.vector import Vector
 
 
 class Point:
     """
-    Mathmatically 3d point
+    Mathmatically 3d point.
 
     >>> Point()
     Point(x=0, y=0, z=0)
     """
 
-    def __init__(self, x=0.0, y=0.0, z=0.0):
+    def __init__(self,
+                 x: Union[int, float] = 0.0,
+                 y: Union[int, float] = 0.0,
+                 z: Union[int, float] = 0.0):
         """
         Args:
-            x (float): 3d x coordinates (default: 0.0)
-            y (float): 3d y coordinates (default: 0.0)
-            z (float): 3d z coordinates (default: 0.0)
+            x (int|float): 3d x coordinates of point (default: 0.0)
+            y (int|float): 3d y coordinates of point (default: 0.0)
+            z (int|float): 3d z coordinates of point (default: 0.0)
         """
         self.x = float(x)
         self.y = float(y)
         self.z = float(z)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns:
             str: readable representation of the values of this class.
         """
         return "Point(x=%(x)g, y=%(y)g, z=%(z)g)" % self.__dict__
 
-    def __sub__(self, other):
+    def __sub__(self, other: Point) -> Vector:
         """
         Args:
             other(Point): another point to use for subtraction.
@@ -41,7 +47,7 @@ class Point:
 
         raise TypeError("You cannot subtract a value of type %s from a point" % type(other))
 
-    def __add__(self, other):
+    def __add__(self, other: Vector) -> Point:
         """
         Get translated point.
 
@@ -56,7 +62,7 @@ class Point:
 
         raise TypeError("You can not add a value of type %s to a point" % type(other))
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """
         Args:
             other(Point): another point to use for comparison.
@@ -70,7 +76,7 @@ class Point:
         return False
 
     @staticmethod
-    def from_vector(vector):
+    def from_vector(vector: Vector) -> Point:
         """
         Args:
             vector(Vector): a vector to use to create a point from it.

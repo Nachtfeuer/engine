@@ -8,6 +8,10 @@ rem Validating styleguide I
 flake8 --max-line-length=100 engine tests
 if %ERRORLEVEL% gtr 0 Exit /B
 
+rem Validating types
+mypy --strict engine
+if %ERRORLEVEL% gtr 0 Exit /B
+
 rem Validating styleguide II
 pylint --rcfile=pylint.rcfile engine tests
 if %ERRORLEVEL% gtr 0 Exit /B

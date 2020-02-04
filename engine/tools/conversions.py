@@ -2,7 +2,7 @@
 import math
 
 
-def to_degree(radian):
+def to_degree(radian: float) -> float:
     """
     Args:
         radian(float): radian value to convert to degree
@@ -13,7 +13,7 @@ def to_degree(radian):
     return radian * 180.0 / math.pi
 
 
-def to_radian(degree):
+def to_radian(degree: float) -> float:
     """
     Args:
         degree(float): degre value to convert to radian

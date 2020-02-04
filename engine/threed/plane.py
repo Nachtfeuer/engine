@@ -1,4 +1,7 @@
 """Mathmatical 3d plane."""
+from __future__ import annotations
+from typing import Union, Any, Optional
+
 from engine.threed.point import Point
 from engine.threed.vector import Vector
 from engine.threed.line import Line
@@ -14,7 +17,7 @@ class Plane:
     'Plane(position=Point(1, 2, 3), direction_a=Vector(4, 5, 6), direction_b=Vector(7, 8, 9))'
     """
 
-    def __init__(self, position, direction_a, direction_b):
+    def __init__(self, position: Point, direction_a: Vector, direction_b: Vector):
         """
         Initialize plane with position and two directions.
 
@@ -35,7 +38,7 @@ class Plane:
         else:
             raise TypeError("One or all types for plane parameters are wrong")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns:
             str: readable representation of the values of this class.
@@ -44,7 +47,7 @@ class Plane:
         text += "direction_a=%(direction_a)s, direction_b=%(direction_b)s)" % self.__dict__
         return text
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """
         Args:
             other(Plane): another plane to use for comparison.
@@ -59,7 +62,7 @@ class Plane:
 
         return False
 
-    def point(self, factor_a, factor_b):
+    def point(self, factor_a: Union[int, float], factor_b: Union[int, float]) -> Point:
         """
         Provide point on plane by two factors (0=start point, 1=end point).
 
@@ -77,7 +80,7 @@ class Plane:
 
         raise TypeError("Not all parameter are either an int or a float")
 
-    def intersection(self, other):
+    def intersection(self, other: Any) -> Optional[Point]:
         """
         Calculate intersection between given plane and a line.
 
@@ -118,7 +121,7 @@ class Plane:
 
         raise TypeError("Given parameter is not a line")
 
-    def has_point(self, point, exact_match=True):
+    def has_point(self, point: Point, exact_match: bool = True) -> bool:
         """
         Args:
             point(Point): point to check to be on the plane.
@@ -145,14 +148,15 @@ class Plane:
                 vector_d = self.direction_b.cross_product(self.direction_a)
 
                 factor_b = self.__factor_check(vector_c, vector_d)
-                return not exact_match or \
-                    (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0)
+                if factor_b is not None:
+                    return not exact_match or \
+                        (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0)
 
             return False
         raise TypeError("Given parameter is not a point")
 
     @staticmethod
-    def __factor_check(vector_a, vector_b):
+    def __factor_check(vector_a: Vector, vector_b: Vector) -> Optional[float]:
         """
         Args:
             vector_a(Vector): first vector

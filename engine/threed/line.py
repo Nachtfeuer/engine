@@ -1,4 +1,7 @@
 """Mathmatical 3d line."""
+from __future__ import annotations
+from typing import Optional
+
 from engine.threed.point import Point
 from engine.threed.vector import Vector
 from engine.tools.options import Options
@@ -13,7 +16,7 @@ class Line:
     Line(position=Point(x=1, y=1, z=1), direction=Vector(x=2, y=2, z=2))
     """
 
-    def __init__(self, position, direction):
+    def __init__(self, position: Point, direction: Vector):
         """
         Initialize line with position and direction.
 
@@ -30,21 +33,21 @@ class Line:
         else:
             raise TypeError("One or all types for line parameters are wrong")
 
-    def length(self):
+    def length(self) -> float:
         """
         Returns:
             float: length of line
         """
         return self.direction.length()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns:
             str: readable representation of the values of this class.
         """
         return "Line(position=%(position)s, direction=%(direction)s)" % self.__dict__
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """
         Args:
             other(Line): another line to use for comparison.
@@ -57,13 +60,13 @@ class Line:
 
         return False
 
-    def angle(self, other):
+    def angle(self, other: Line) -> float:
         """
         Args:
             other(Line): another line to use for calculation of angle.
 
         Returns:
-            Vector: angle between two lines.
+            float: angle between two lines.
 
         Raises:
             TypeError: when given parameter is not a line.
@@ -74,7 +77,7 @@ class Line:
         raise TypeError("You cannot calculate an angle " +
                         "between a line and type %s" % type(other))
 
-    def distance(self, obj):
+    def distance(self, obj: Point) -> float:
         """
         Args:
             object(Point): distance to a point.
@@ -94,7 +97,7 @@ class Line:
         raise TypeError("You can not calculate distance " +
                         "between a line and type %s" % type(obj))
 
-    def has_point(self, point):
+    def has_point(self, point: Point) -> bool:
         """
         Verifies that point is on the line.
 
@@ -112,7 +115,7 @@ class Line:
 
         raise TypeError("Given parameter is not a point")
 
-    def point(self, factor):
+    def point(self, factor: float) -> Point:
         """
         Provide point on line by factor (0=start point, 1=end point).
 
@@ -128,9 +131,9 @@ class Line:
         raise TypeError("Given parameter is not an int or a float")
 
     @staticmethod
-    def from_points(point_a, point_b):
+    def from_points(point_a: Point, point_b: Point) -> Line:
         """
-        Create a linne from two points.
+        Create a line from two points.
 
         Args:
             point_a(Point) - start point of line
@@ -147,7 +150,7 @@ class Line:
 
         raise TypeError("Not all given parameter are points")
 
-    def intersection(self, other):
+    def intersection(self, other: Line) -> Optional[Point]:
         """
         Calculate intersection between two lines.
 
