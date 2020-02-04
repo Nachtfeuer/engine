@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import List
 
 from engine.threed.point import Point
+from engine.threed.plane import Plane
 
 
 class Triangle:
@@ -42,3 +43,25 @@ class Triangle:
             str: readable representation of the values of this class.
         """
         return "Triangle(%s, %s, %s)" % (self.__point_a, self.__point_b, self.__point_c)
+
+    def has_point(self, point: Point) -> bool:
+        """
+        Check whether given point is inside the triangle.
+
+        Args:
+            point(Point): point to check.
+
+        Returns:
+            bool: True when point is inside the triangle.
+        """
+        plane = Plane(self.__point_a,
+                      self.__point_b - self.__point_a,
+                      self.__point_c - self.__point_a)
+
+        factor_a, factor_b = plane.calculate_point_factors(point)
+        if factor_a is not None and factor_b is not None:
+            print(factor_a, factor_b)
+            return (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0 and
+                    (factor_a + factor_b) <= 1.0)
+
+        return False

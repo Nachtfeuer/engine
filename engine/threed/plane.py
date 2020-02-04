@@ -1,6 +1,6 @@
 """Mathmatical 3d plane."""
 from __future__ import annotations
-from typing import Union, Any, Optional
+from typing import Tuple, Union, Any, Optional
 
 from engine.threed.point import Point
 from engine.threed.vector import Vector
@@ -130,6 +130,25 @@ class Plane:
         Returns:
             bool: True when point is on the plane.
         """
+        factor_a, factor_b = self.calculate_point_factors(point)
+        if factor_a is not None and factor_b is not None:
+            return not exact_match or (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0)
+
+        return False
+
+    def calculate_point_factors(self, point: Point) -> Tuple[Optional[float], Optional[float]]:
+        """
+        Args:
+            point(Point): point to check to be on the plane.
+            exact_match(bool): when true (default) both factors have to be in range(0.0..1.0)
+
+        Returns:
+            Tuple[float, float]: tuple of two float factors or None's
+                                 if no intersection is possible.
+
+        Raises:
+            TypeError: if given Parameter is not a point
+        """
         if isinstance(point, Point):
             # p1      = p2 + a * v1 + b * v2   | -p2
             # p1 - p2 =      a * v1 + b * v2
@@ -141,18 +160,15 @@ class Plane:
             #     (p1 - p2) x v1     = b * v2 x v1
             vector_a = (point - self.position).cross_product(self.direction_b)
             vector_b = self.direction_a.cross_product(self.direction_b)
-
             factor_a = Plane.factor_check(vector_a, vector_b)
+            factor_b = None
+
             if factor_a is not None:
                 vector_c = (point - self.position).cross_product(self.direction_a)
                 vector_d = self.direction_b.cross_product(self.direction_a)
-
                 factor_b = Plane.factor_check(vector_c, vector_d)
-                if factor_b is not None:
-                    return not exact_match or \
-                        (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0)
 
-            return False
+            return factor_a, factor_b
         raise TypeError("Given parameter is not a point")
 
     @staticmethod

@@ -36,7 +36,24 @@ class TestTriangle(TestCase):
         expected_str = "Triangle(%s, %s, %s)" % (point1, point2, point3)
         assert_that(str(triangle), equal_to(expected_str))
 
-#    def test_has_point(self):
-#        """Testing of 'has_point' method."""
-#        triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
-#        assert_that(triangle.has_point(Point(2, 1, 0)), True)
+    def test_has_point_should_succeed(self):
+        """Testing of 'has_point' method should succeed."""
+        triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+        assert_that(triangle.has_point(Point(0, 0, 0)), equal_to(True))
+        assert_that(triangle.has_point(Point(2, 1, 0)), equal_to(True))
+        assert_that(triangle.has_point(Point(3, 0, 0)), equal_to(True))
+        assert_that(triangle.has_point(Point(3, 3, 0)), equal_to(True))
+
+    def test_has_point_should_fail(self):
+        """Testing of 'has_point' method should fail."""
+        triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+        assert_that(triangle.has_point(Point(3.001, 0, 0)), equal_to(False))
+        assert_that(triangle.has_point(Point(-0.001, 0, 0)), equal_to(False))
+        assert_that(triangle.has_point(Point(3.001, 3.001, 0)), equal_to(False))
+        assert_that(triangle.has_point(Point(2, 1, 0.001)), equal_to(False))
+
+
+def test_triangle_has_point_perf(benchmark):
+    """Testing performance of triangle has_point method."""
+    triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+    benchmark(triangle.has_point, Point(2, 1, 0))

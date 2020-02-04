@@ -130,7 +130,7 @@ class TestPlane(TestCase):
             mocked_factor_check.side_effect = [0.5, None]
             assert_that(plane.has_point(Point(1, 5, 5)), equal_to(False))
 
-        assert_that(calling(Plane.has_point).with_args(None, "hello"),
+        assert_that(calling(plane.has_point).with_args(None, "hello"),
                     raises(TypeError, "Given parameter is not a point"))
 
 
