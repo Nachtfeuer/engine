@@ -69,6 +69,7 @@ class Plane {
 class Triangle {
     + Point[3] points
     + Point intersection(Line line)
+    + bool has_point(Point point)
 }
 @enduml
 ```

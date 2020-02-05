@@ -1,9 +1,10 @@
 """Module triangle."""
 from __future__ import annotations
-from typing import List
+from typing import List, Optional
 
 from engine.threed.point import Point
 from engine.threed.plane import Plane
+from engine.threed.line import Line
 
 
 class Triangle:
@@ -60,8 +61,27 @@ class Triangle:
 
         factor_a, factor_b = plane.calculate_point_factors(point)
         if factor_a is not None and factor_b is not None:
-            print(factor_a, factor_b)
             return (0.0 <= factor_a <= 1.0 and 0.0 <= factor_b <= 1.0 and
                     (factor_a + factor_b) <= 1.0)
 
         return False
+
+    def intersection(self, line: Line) -> Optional[Point]:
+        """
+        Checking intersectionof triangle with a line.
+
+        Args:
+            line(Line): the line to find intersection point.
+
+        Returns:
+            Point: if intersection point has been found otherwise None.
+        """
+        plane = Plane(self.__point_a,
+                      self.__point_b - self.__point_a,
+                      self.__point_c - self.__point_a)
+
+        point = plane.intersection(line)
+        if point is not None:
+            if self.has_point(point):
+                return point
+        return None

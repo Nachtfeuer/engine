@@ -129,6 +129,9 @@ class Plane:
 
         Returns:
             bool: True when point is on the plane.
+
+        Raises:
+            TypeError: if given Parameter is not a point
         """
         factor_a, factor_b = self.calculate_point_factors(point)
         if factor_a is not None and factor_b is not None:
@@ -179,7 +182,7 @@ class Plane:
             vector_b(Vector): second vector to use for division
 
         Returns:
-            tuple(float, bool): factor and True when the factor is valid
+            float: factor if found otherwise None
         """
         factor = None
 

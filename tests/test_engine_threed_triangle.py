@@ -5,6 +5,7 @@ from hamcrest import assert_that, equal_to, calling, raises
 
 from engine.threed.point import Point
 from engine.threed.triangle import Triangle
+from engine.threed.line import Line
 
 
 class TestTriangle(TestCase):
@@ -52,8 +53,33 @@ class TestTriangle(TestCase):
         assert_that(triangle.has_point(Point(3.001, 3.001, 0)), equal_to(False))
         assert_that(triangle.has_point(Point(2, 1, 0.001)), equal_to(False))
 
+    def test_intersection_should_succeed(self):
+        """Testing of 'intersection' method should succeed."""
+        triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+        line = Line.from_points(Point(2, 1, -5), Point(2, 1, +5))
+        assert_that(triangle.intersection(line), equal_to(Point(2, 1, 0)))
+
+    def test_intersection_should_fail(self):
+        """Testing of 'intersection' method should fail."""
+        # line intersects plane of triangle but not in range defined by its vectors
+        triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+        line = Line.from_points(Point(5, 1, -5), Point(5, 1, +5))
+        assert_that(triangle.intersection(line), equal_to(None))
+
+        # line parallel to triangle and also not on its plane
+        triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+        line = Line.from_points(Point(0, 0, -5), Point(3, 0, -5))
+        assert_that(triangle.intersection(line), equal_to(None))
+
 
 def test_triangle_has_point_perf(benchmark):
     """Testing performance of triangle has_point method."""
     triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
     benchmark(triangle.has_point, Point(2, 1, 0))
+
+
+def test_triangle_intersects_line_perf(benchmark):
+    """Testing performance of triangle intersection method."""
+    triangle = Triangle(Point(0, 0, 0), Point(3, 0, 0), Point(3, 3, 0))
+    line = Line.from_points(Point(2, 1, -5), Point(2, 1, +5))
+    benchmark(triangle.intersection, line)
