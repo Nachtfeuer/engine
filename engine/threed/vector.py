@@ -2,9 +2,11 @@
 from __future__ import annotations
 import math
 from typing import List, Tuple, Union, Any
+from engine.tools.options import Options
+from engine.threed.base.vector import AbstractVector
 
 
-class Vector:
+class Vector(AbstractVector):
     """
     Mathmatically 3d vector
 
@@ -13,20 +15,6 @@ class Vector:
     >>> abs(Vector(2, 3, 6).length() - 7.0) < 1e-6
     True
     """
-
-    def __init__(self,
-                 x: Union[int, float] = 0.0,
-                 y: Union[int, float] = 0.0,
-                 z: Union[int, float] = 0.0):
-        """
-        Args:
-            x (float): 3d x coordinates (default: 0.0)
-            y (float): 3d y coordinates (default: 0.0)
-            z (float): 3d z coordinates (default: 0.0)
-        """
-        self.x = float(x)
-        self.y = float(y)
-        self.z = float(z)
 
     def length(self) -> float:
         """
@@ -55,13 +43,13 @@ class Vector:
 
         return False
 
-    def __add__(self, other: Vector) -> Vector:
+    def __add__(self, other: AbstractVector) -> AbstractVector:
         """
         Args:
-            other(Vector): another vector to use for summation.
+            other(AbstractVector): another vector to use for summation.
 
         Returns:
-            Vector: sum of two vectors.
+            AbstractVector: sum of two vectors.
         """
         if isinstance(other, Vector):
             return Vector(self.x + other.x, self.y + other.y, self.z + other.z)
@@ -75,20 +63,20 @@ class Vector:
         """
         return Vector(-self.x, -self.y, -self.z)
 
-    def __sub__(self, other: Vector) -> Vector:
+    def __sub__(self, other: AbstractVector) -> AbstractVector:
         """
         Args:
-            other(Vector): another vector to use for subtraction.
+            other(AbstractVector): another vector to use for subtraction.
 
         Returns:
-            Vector: difference of two vectors.
+            AbstractVector: difference of two vectors.
         """
         if isinstance(other, Vector):
             return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
 
         raise TypeError("You cannot subtract a value of type %s from a vector" % type(other))
 
-    def __mul__(self, other: Vector) -> Vector:
+    def __mul__(self, other: Union[int, float]) -> AbstractVector:
         """
         Multiply a vector by a factor.
 
@@ -96,7 +84,7 @@ class Vector:
             other(int or float): a factor
 
         Returns:
-            Vector: multiplicated by a factor.
+            AbstractVector: multiplicated by a factor.
         """
         if isinstance(other, (int, float)):
             return self.scaled(other)
@@ -117,13 +105,13 @@ class Vector:
             raise ValueError("Index out of range (0, 1 or 2 expected)")
         raise TypeError("Index is not an int")
 
-    def dot_product(self, other: Vector) -> float:
+    def dot_product(self, other: AbstractVector) -> float:
         """
         Args:
             other(Vector): another vector to use for calculation of dot product.
 
         Returns:
-            Vector: dot product of two vectors.
+            float: dot product of two vectors.
         """
         if isinstance(other, Vector):
             return self.x * other.x + self.y * other.y + self.z * other.z
@@ -131,15 +119,27 @@ class Vector:
         raise TypeError("You cannot calculate a dot product " +
                         "between a vector and type %s" % type(other))
 
-    def cross_product(self, other: Vector) -> Vector:
+    def is_perpendicular(self, other: AbstractVector) -> bool:
         """
+        Checking two vectors to be perpendicular to each other.
+
         Args:
-            other(Vector): another vector to use for calculation of cross product.
+            other(AbstractVector): another Vector to check this property with
 
         Returns:
-            Vector: dot product of two vectors.
+            bool: when both vectors are perpendicular to each other.
         """
-        if isinstance(other, Vector):
+        return abs(self.dot_product(other)) < Options.PRECISION
+
+    def cross_product(self, other: AbstractVector) -> AbstractVector:
+        """
+        Args:
+            other(AbstractVector): another vector to use for calculation of cross product.
+
+        Returns:
+            AbstractVector: dot product of two vectors.
+        """
+        if isinstance(other, AbstractVector):
             return Vector(self.y * other.z - self.z * other.y,
                           self.z * other.x - self.x * other.z,
                           self.x * other.y - self.y * other.x)
@@ -147,13 +147,13 @@ class Vector:
         raise TypeError("You cannot calculate a cross product " +
                         "between a vector and type %s" % type(other))
 
-    def angle(self, other: Vector) -> float:
+    def angle(self, other: AbstractVector) -> float:
         """
         Args:
-            other(Vector): another vector to use for calculation of angle.
+            other(AbstractVector): another vector to use for calculation of angle.
 
         Returns:
-            Vector: angle between two vectors.
+            float: angle between two vectors.
         """
         if isinstance(other, Vector):
             len1 = self.length()
@@ -201,16 +201,16 @@ class Vector:
 
         raise TypeError("Sequence %s cannot be converted into a vector" % str(sequence))
 
-    def normalized(self) -> Vector:
+    def normalized(self) -> AbstractVector:
         """
         Provided normalized vector (lenght is then 1.0).
 
         Returns:
-            Vector: normalized
+            AbstractVector: normalized
         """
         return self.scaled(1.0 / self.length())
 
-    def scaled(self, factor: Union[int, float]) -> Vector:
+    def scaled(self, factor: Union[int, float]) -> AbstractVector:
         """
         Provide vector scaled by given factor.
 
@@ -218,11 +218,11 @@ class Vector:
             factor(int or float): factor to multiply each coordinate with.
 
         Returns:
-            Vector: each coordinated multiplicated by given factor.
+            AbstractVector: each coordinated multiplicated by given factor.
         """
         return Vector(self.x * factor, self.y * factor, self.z * factor)
 
-    def projection(self, other: Vector) -> Vector:
+    def projection(self, other: AbstractVector) -> AbstractVector:
         """
         Calculate projection "vector on vector".
 

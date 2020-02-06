@@ -2,41 +2,17 @@
 from __future__ import annotations
 from typing import Tuple, Union, Any, Optional
 
+from engine.threed.base.plane import AbstractPlane
+from engine.threed.base.vector import AbstractVector
+from engine.threed.base.point import AbstractPoint
+from engine.threed.base.line import AbstractLine
+
 from engine.threed.point import Point
-from engine.threed.vector import Vector
-from engine.threed.line import Line
 from engine.tools.options import Options
 
 
-class Plane:
-    """
-    Mathmatical 3d plane.
-
-    >>> plane = Plane(Point(1, 2, 3), Vector(4, 5, 6), Vector(7, 8, 9))
-    >>> str(plane).replace("x=", "").replace("y=", "").replace("z=", "")
-    'Plane(position=Point(1, 2, 3), direction_a=Vector(4, 5, 6), direction_b=Vector(7, 8, 9))'
-    """
-
-    def __init__(self, position: Point, direction_a: Vector, direction_b: Vector):
-        """
-        Initialize plane with position and two directions.
-
-        Args:
-            position(Point): start of plane
-            direction_a(Vector): first direction of plane.
-            direction_b(Vector): second direction of plane.
-
-        Raises:
-            TypeError: when position is not a point or directions are not a vector
-        """
-        if isinstance(position, Point) and \
-            isinstance(direction_a, Vector) and \
-                isinstance(direction_b, Vector):
-            self.position = position
-            self.direction_a = direction_a
-            self.direction_b = direction_b
-        else:
-            raise TypeError("One or all types for plane parameters are wrong")
+class Plane(AbstractPlane):
+    """Mathmatical 3d plane."""
 
     def __repr__(self) -> str:
         """
@@ -62,7 +38,7 @@ class Plane:
 
         return False
 
-    def point(self, factor_a: Union[int, float], factor_b: Union[int, float]) -> Point:
+    def point(self, factor_a: Union[int, float], factor_b: Union[int, float]) -> AbstractPoint:
         """
         Provide point on plane by two factors (0=start point, 1=end point).
 
@@ -80,12 +56,12 @@ class Plane:
 
         raise TypeError("Not all parameter are either an int or a float")
 
-    def intersection(self, other: Any) -> Optional[Point]:
+    def intersection(self, other: Any) -> Optional[AbstractPoint]:
         """
         Calculate intersection between given plane and a line.
 
         Args:
-            other(Line): line to find intersection point.
+            other(AbstractLine): line to find intersection point.
 
         Returns:
             Point: found intersection point or None if not found.
@@ -98,7 +74,7 @@ class Plane:
             the start point and end point of the line or inside the limits
             defined for the plane.
         """
-        if isinstance(other, Line):
+        if isinstance(other, AbstractLine):
             line = other
             # p1 + a * v1               = p2 + b * v2 + c * v3           | - p1
             #      a * v1               = (p2 - p1) + b * v2 + c * v3    | x v3
@@ -121,10 +97,10 @@ class Plane:
 
         raise TypeError("Given parameter is not a line")
 
-    def has_point(self, point: Point, exact_match: bool = True) -> bool:
+    def has_point(self, point: AbstractPoint, exact_match: bool = True) -> bool:
         """
         Args:
-            point(Point): point to check to be on the plane.
+            point(AbstractPoint): point to check to be on the plane.
             exact_match(bool): when true (default) both factors have to be in range(0.0..1.0)
 
         Returns:
@@ -139,7 +115,15 @@ class Plane:
 
         return False
 
-    def calculate_point_factors(self, point: Point) -> Tuple[Optional[float], Optional[float]]:
+    def normal(self) -> AbstractVector:
+        """
+        Returns:
+            AbstractVector: plane normal.
+        """
+        return self.direction_a.cross_product(self.direction_b).normalized()
+
+    def calculate_point_factors(
+            self, point: AbstractPoint) -> Tuple[Optional[float], Optional[float]]:
         """
         Args:
             point(Point): point to check to be on the plane.
@@ -152,7 +136,7 @@ class Plane:
         Raises:
             TypeError: if given Parameter is not a point
         """
-        if isinstance(point, Point):
+        if isinstance(point, AbstractPoint):
             # p1      = p2 + a * v1 + b * v2   | -p2
             # p1 - p2 =      a * v1 + b * v2
             # 1) -b * v2
@@ -175,11 +159,11 @@ class Plane:
         raise TypeError("Given parameter is not a point")
 
     @staticmethod
-    def factor_check(vector_a: Vector, vector_b: Vector) -> Optional[float]:
+    def factor_check(vector_a: AbstractVector, vector_b: AbstractVector) -> Optional[float]:
         """
         Args:
-            vector_a(Vector): first vector
-            vector_b(Vector): second vector to use for division
+            vector_a(AbstractVector): first vector
+            vector_b(AbstractVector): second vector to use for division
 
         Returns:
             float: factor if found otherwise None
@@ -202,3 +186,20 @@ class Plane:
             return None
 
         return factor
+
+    def projection_point(self, point: AbstractPoint) -> AbstractPoint:
+        """
+        Projection of point on given plane.
+
+        Args:
+            plane(AbstractPlane): plane to use for point -> plane projection.
+
+        Returns:
+            AbstractPoint: projection point onto given plane.
+        """
+        if isinstance(point, AbstractPoint):
+            vector_1 = point - self.position
+            vector_2 = self.normal()
+            return Point.from_vector(vector_1 - vector_2.scaled(vector_1.dot_product(vector_2)))
+
+        raise TypeError("Given parameter is not a point")

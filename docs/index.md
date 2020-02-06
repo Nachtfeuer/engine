@@ -4,34 +4,63 @@ It's an overview of the classes and its relationships:
 
 ```plantuml
 @startuml
-Line ..> Point
-Line ..> Vector
-Triangle ..> Point
-Plane ..> Point
-Plane ..> Vector
+AbstractLine <-- Line
+AbstractPoint <-- Point
+AbstractVector <-- Vector
+AbstractPlane <-- Plane
 
-class Vector {
+Line ..> AbstractPoint
+Line ..> AbstractVector
+
+Triangle ..> AbstractPoint
+Triangle ..> AbstractLine
+Triangle ..> Plane
+
+Plane ..> Point
+Plane ..> AbstractPoint
+Plane ..> AbstractVector
+Plane ..> AbstractLine
+
+class AbstractVector {
     + float x
     + float y
     + float z
     --
-    + float length()
-    + float angle(Vector vector)
-    + float dot_product(Vector vector)
-    + Vector cross_product(Vector vector)
-    + Vector normalized()
-    + Vector scaled(float factor)
-    + Vector projection(Vector vector)
+    {abstract} + float length()
+    {abstract} + float angle(AbstractVector vector)
+    {abstract} + float dot_product(AbstractVector vector)
+    {abstract} + AbstractVector cross_product(AbstractVector vector)
+    {abstract} + AbstractVector normalized()
+    {abstract} + AbstractVector scaled(float factor)
+    {abstract} + AbstractVector projection(AbstractVector vector)
     .. operators ..
-    + Vector add(Vector vector)
-    + Vector sub(Vector vector)
-    + Vector neg(Vector vector)
-    + Vector mul(float factor)
+    {abstract} + AbstractVector add(AbstractVector vector)
+    {abstract} + AbstractVector sub(AbstractVector vector)
+    {abstract} + AbstractVector neg(AbstractVector vector)
+    {abstract} + AbstractVector mul(float factor)
+    .. tool functions ..
+    {abstract} + float[3] toList()
+    {abstract} + float(3) toTuple()
+}
+
+class Vector {
+    + float length()
+    + float angle(AbstractVector vector)
+    + float dot_product(AbstractVector vector)
+    + AbstractVector cross_product(AbstractVector vector)
+    + AbstractVector normalized()
+    + AbstractVector scaled(float factor)
+    + AbstractVector projection(AbstractVector vector)
+    .. operators ..
+    + AbstractVector add(AbstractVector vector)
+    + AbstractVector sub(AbstractVector vector)
+    + AbstractVector neg(AbstractVector vector)
+    + AbstractVector mul(float factor)
     .. tool functions ..
     + float[3] toList()
     + float(3) toTuple()
     ..
-    {static} + Vector from_sequence(List|Tuple sequence)
+    {static} + AbstractVector from_sequence(List|Tuple sequence)
 }
 
 class Point {
@@ -39,37 +68,38 @@ class Point {
     + float y
     + float z
     --
-    + Vector sub(Point point)
+    + AbstractVector sub(AbstractPoint point)
 }
 
 class Line {
-    + Point position
-    + Vector direction
+    + AbstractPoint position
+    + AbstractVector direction
     --
     + float length()
     + float angle(Line line)
     + float distance(Point point)
-    + Point point(float factor)
-    + boolean has_point(Point point)
-    + Point intersection(Line line)
+    + AbstractPoint point(float factor)
+    + boolean has_point(AbstractPoint point)
+    + AbstractPoint intersection(AbstractLine line)
     ..
-    {static} + Line from_point(Point point_a, Point point_b)
+    {static} + AbstractLine from_point(AbstractPoint point_a, AbstractPoint point_b)
 }
 
 class Plane {
-    + Point position
-    + Vector direction_a
-    + Vector direction_b
+    + AbstractPoint position
+    + AbstractVector direction_a
+    + AbstractVector direction_b
 
-    + Point intersection(Line line)
-    + Point point(float factor_a, float factor_b)
-    + boolean has_point(Point point, boolean exact_match=True)
+    + AbstractPoint intersection(AbstractLine line)
+    + AbstractPoint point(float factor_a, float factor_b)
+    + boolean has_point(AbstractPoint point, boolean exact_match=True)
+    + AbstractPoint projection_point(AbstractPoint point)
 }
 
 class Triangle {
-    + Point[3] points
-    + Point intersection(Line line)
-    + bool has_point(Point point)
+    + AbstractPoint[3] points
+    + AbstractPoint intersection(AbstractLine line)
+    + bool has_point(AbstractPoint point)
 }
 @enduml
 ```

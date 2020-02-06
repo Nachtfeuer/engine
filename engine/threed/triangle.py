@@ -2,20 +2,16 @@
 from __future__ import annotations
 from typing import List, Optional
 
-from engine.threed.point import Point
+from engine.threed.base.point import AbstractPoint
+from engine.threed.base.line import AbstractLine
+
 from engine.threed.plane import Plane
-from engine.threed.line import Line
 
 
 class Triangle:
-    """
-    A Triangle is the smalles plane with three points.
+    """A Triangle is the smalles plane with three points."""
 
-    >>> Triangle(Point(1, 2, 3), Point(4, 5, 6),Point(7, 8, 9))
-    Triangle(Point(x=1, y=2, z=3), Point(x=4, y=5, z=6), Point(x=7, y=8, z=9))
-    """
-
-    def __init__(self, point_a: Point, point_b: Point, point_c: Point):
+    def __init__(self, point_a: AbstractPoint, point_b: AbstractPoint, point_c: AbstractPoint):
         """
         Initializing triangle with three points.
 
@@ -24,14 +20,14 @@ class Triangle:
             point_b(Point): second point of triangle.
             point_c(Point): third point of triangle.
         """
-        if all(isinstance(entry, Point) for entry in [point_a, point_b, point_c]):
+        if all(isinstance(entry, AbstractPoint) for entry in [point_a, point_b, point_c]):
             self.__point_a = point_a
             self.__point_b = point_b
             self.__point_c = point_c
         else:
-            raise TypeError("Not all parameters are of type %s" % type(Point))
+            raise TypeError("Not all parameters are of type %s" % type(AbstractPoint))
 
-    def points(self) -> List[Point]:
+    def points(self) -> List[AbstractPoint]:
         """
         Returns:
             list<Point>: provides the three points.
@@ -45,12 +41,12 @@ class Triangle:
         """
         return "Triangle(%s, %s, %s)" % (self.__point_a, self.__point_b, self.__point_c)
 
-    def has_point(self, point: Point) -> bool:
+    def has_point(self, point: AbstractPoint) -> bool:
         """
         Check whether given point is inside the triangle.
 
         Args:
-            point(Point): point to check.
+            point(AbstractPoint): point to check.
 
         Returns:
             bool: True when point is inside the triangle.
@@ -66,7 +62,7 @@ class Triangle:
 
         return False
 
-    def intersection(self, line: Line) -> Optional[Point]:
+    def intersection(self, line: AbstractLine) -> Optional[AbstractPoint]:
         """
         Checking intersectionof triangle with a line.
 

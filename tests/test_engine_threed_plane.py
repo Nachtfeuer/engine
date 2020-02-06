@@ -28,6 +28,15 @@ class TestPlane(TestCase):
         assert_that(calling(Plane.__init__).with_args(None, Point(1, 2, 3), Vector(4, 5, 6), 3),
                     raises(TypeError, message))
 
+    def test_repr(self):
+        """Testing method __repr__."""
+        plane = Plane(Point(1, 2, 3), Vector(4, 5, 6), Vector(7, 8, 9))
+        expected_str = "Plane(position=Point(x=1, y=2, z=3),"
+        expected_str += " direction_a=Vector(x=4, y=5, z=6),"
+        expected_str += " direction_b=Vector(x=7, y=8, z=9)"
+        expected_str += ")"
+        assert_that(str(plane), equal_to(expected_str))
+
     def test_equal(self):
         """Testing of __eq__ method."""
         line_a = Plane(Point(1, 2, 3), Vector(4, 5, 6), Vector(7, 8, 9))
@@ -49,6 +58,11 @@ class TestPlane(TestCase):
         message = "Not all parameter are either an int or a float"
         assert_that(calling(Plane.point).with_args(None, 1, "abc"), raises(TypeError, message))
         assert_that(calling(Plane.point).with_args(None, "abc", 1), raises(TypeError, message))
+
+    def test_normal(self):
+        """Testing of 'normal' method."""
+        plane = Plane(Point(1, 2, 3), Vector(0, 0, 10), Vector(10, 0, 0))
+        assert_that(plane.normal(), equal_to(Vector(0, 1, 0)))
 
     def test_intersection_succeeds(self):
         """Testing of 'intersection' method."""
@@ -130,7 +144,16 @@ class TestPlane(TestCase):
             mocked_factor_check.side_effect = [0.5, None]
             assert_that(plane.has_point(Point(1, 5, 5)), equal_to(False))
 
-        assert_that(calling(plane.has_point).with_args(None, "hello"),
+        assert_that(calling(plane.has_point).with_args("hello"),
+                    raises(TypeError, "Given parameter is not a point"))
+
+    def test_projection_point(self):
+        """Testing point method 'projection_point'."""
+        plane = Plane(Point.origin(), Vector(10, 0, 0), Vector(0, 0, 10))
+        point = Point(5, 5, 5)
+        assert_that(plane.projection_point(point), equal_to(Point(5, 0, 5)))
+
+        assert_that(calling(plane.projection_point).with_args("hello"),
                     raises(TypeError, "Given parameter is not a point"))
 
 

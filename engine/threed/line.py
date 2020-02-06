@@ -2,36 +2,13 @@
 from __future__ import annotations
 from typing import Optional
 
-from engine.threed.point import Point
-from engine.threed.vector import Vector
+from engine.threed.base.point import AbstractPoint
+from engine.threed.base.line import AbstractLine
 from engine.tools.options import Options
 
 
-class Line:
-    """
-    Mathmatical 3d line.
-
-    >>> line = Line(Point(1, 1, 1), Vector(2, 2, 2))
-    >>> line
-    Line(position=Point(x=1, y=1, z=1), direction=Vector(x=2, y=2, z=2))
-    """
-
-    def __init__(self, position: Point, direction: Vector):
-        """
-        Initialize line with position and direction.
-
-        Args:
-            position(Point): start of line
-            direction(Vector): direction of line.
-
-        Raises:
-            TypeError: when position is not a point or direction is not a vector
-        """
-        if isinstance(position, Point) and isinstance(direction, Vector):
-            self.position = position
-            self.direction = direction
-        else:
-            raise TypeError("One or all types for line parameters are wrong")
+class Line(AbstractLine):
+    """Mathmatical 3d line."""
 
     def length(self) -> float:
         """
@@ -55,12 +32,12 @@ class Line:
         Returns:
             bool: True when both lines are equal otherwise false
         """
-        if isinstance(other, Line):
+        if isinstance(other, AbstractLine):
             return self.position == other.position and self.direction == other.direction
 
         return False
 
-    def angle(self, other: Line) -> float:
+    def angle(self, other: AbstractLine) -> float:
         """
         Args:
             other(Line): another line to use for calculation of angle.
@@ -71,13 +48,13 @@ class Line:
         Raises:
             TypeError: when given parameter is not a line.
         """
-        if isinstance(other, Line):
+        if isinstance(other, AbstractLine):
             return self.direction.angle(other.direction)
 
         raise TypeError("You cannot calculate an angle " +
                         "between a line and type %s" % type(other))
 
-    def distance(self, obj: Point) -> float:
+    def distance(self, obj: AbstractPoint) -> float:
         """
         Args:
             object(Point): distance to a point.
@@ -88,7 +65,7 @@ class Line:
         Raises:
             TypeError: when given parameter is not a point.
         """
-        if isinstance(obj, Point):
+        if isinstance(obj, AbstractPoint):
             point = obj
             vector_a = point - self.position
             vector_b = vector_a.projection(self.direction)
@@ -97,7 +74,7 @@ class Line:
         raise TypeError("You can not calculate distance " +
                         "between a line and type %s" % type(obj))
 
-    def has_point(self, point: Point) -> bool:
+    def has_point(self, point: AbstractPoint) -> bool:
         """
         Verifies that point is on the line.
 
@@ -110,12 +87,12 @@ class Line:
         Raises:
             TypeError: when given parameter is not a point
         """
-        if isinstance(point, Point):
+        if isinstance(point, AbstractPoint):
             return self.distance(point) <= Options.PRECISION
 
         raise TypeError("Given parameter is not a point")
 
-    def point(self, factor: float) -> Point:
+    def point(self, factor: float) -> AbstractPoint:
         """
         Provide point on line by factor (0=start point, 1=end point).
 
@@ -131,13 +108,13 @@ class Line:
         raise TypeError("Given parameter is not an int or a float")
 
     @staticmethod
-    def from_points(point_a: Point, point_b: Point) -> Line:
+    def from_points(point_a: AbstractPoint, point_b: AbstractPoint) -> Line:
         """
         Create a line from two points.
 
         Args:
-            point_a(Point) - start point of line
-            point_b(Point) - end point of line
+            point_a(AbstractPoint) - start point of line
+            point_b(AbstractPoint) - end point of line
 
         Returns:
             Line: line with position (point) and direction (vector)
@@ -145,17 +122,17 @@ class Line:
         Raises:
             TypeError: when not all parameters are points
         """
-        if isinstance(point_a, Point) and isinstance(point_b, Point):
+        if isinstance(point_a, AbstractPoint) and isinstance(point_b, AbstractPoint):
             return Line(point_a, point_b - point_a)
 
         raise TypeError("Not all given parameter are points")
 
-    def intersection(self, other: Line) -> Optional[Point]:
+    def intersection(self, other: AbstractLine) -> Optional[AbstractPoint]:
         """
         Calculate intersection between two lines.
 
         Args:
-            other(Line): another line to find intersection point.
+            other(AbstractLine): another line to find intersection point.
 
         Returns:
             Point: found intersection point or None if not found.
@@ -167,7 +144,7 @@ class Line:
             The method does not check whether a found point lies inbetween
             the start point and end point of the line.
         """
-        if isinstance(other, Line):
+        if isinstance(other, AbstractLine):
             # p1 + a * v1 = p2 + b * v2         | - p1
             #      a * v1 = (p2 - p1) + b * v2  | x v2
             # a * v1 x v2 = (p2 - p1) x v2

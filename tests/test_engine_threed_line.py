@@ -27,6 +27,12 @@ class TestLine(TestCase):
         assert_that(calling(Line.__init__).with_args(None, 1, Vector(4, 5, 6)),
                     raises(TypeError, message))
 
+    def test_repr(self):
+        """Testing method __repr__."""
+        line = Line(Point(1, 2, 3), Vector(4, 5, 6))
+        expected_str = "Line(position=Point(x=1, y=2, z=3), direction=Vector(x=4, y=5, z=6))"
+        assert_that(str(line), equal_to(expected_str))
+
     def test_length(self):
         """Testing length of line."""
         line = Line(Point(1, 2, 3), Vector(4, 5, 6))

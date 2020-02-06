@@ -70,6 +70,12 @@ class TestVector(TestCase):
         assert_that(calling(Vector(1, 2, 3).dot_product).with_args(1234),
                     raises(TypeError, message))
 
+    def test_is_perpednicular(self):
+        """Testing method 'is_perpendicular'."""
+        assert_that(Vector(1, 0, 0).is_perpendicular(Vector(0, 1, 0)), equal_to(True))
+        assert_that(Vector(1, 1, 0).is_perpendicular(Vector(-1, 1, 0)), equal_to(True))
+        assert_that(Vector(1, 0, 0).is_perpendicular(Vector(1, 1, 0)), equal_to(False))
+
     def test_cross_product(self):
         """Testing cross product of two vectors."""
         assert_that(Vector(2, 3, 4).cross_product(Vector(5, 6, 7)), equal_to(Vector(-3, 6, -3)))
