@@ -2,11 +2,12 @@
 # pylint: disable=no-self-use
 import math
 from unittest import TestCase
-from hamcrest import assert_that, equal_to, calling, raises, is_not
+from hamcrest import assert_that, equal_to, calling, raises, is_not, less_than_or_equal_to
 
 from engine.threed.quaternion import Quaternion
 from engine.threed.vector import Vector
 from engine.tools.conversions import to_radian
+from engine.tools.options import Options
 
 
 class QuaternionTest(TestCase):
@@ -75,7 +76,11 @@ class QuaternionTest(TestCase):
         quaternion = Quaternion(math.cos(w/2.0), math.sin(w/2.0), 0, 0)
         vector = Vector(0.0, 2.0, 0.0)
         vector_rotated = quaternion * Quaternion.from_vector(vector) * quaternion.inverse()
-        assert_that(vector_rotated, equal_to(Quaternion(0, 0, 0, 2.0)))
+
+        assert_that(abs(vector_rotated.w), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.x), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.y), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.z - 2.0), less_than_or_equal_to(Options.PRECISION))
 
     def test_rotate_y(self):
         """Testing rotation around y axis."""
@@ -83,7 +88,11 @@ class QuaternionTest(TestCase):
         quaternion = Quaternion(math.cos(w/2.0), 0, math.sin(w/2.0), 0)
         vector = Vector(2.0, 0.0, 0.0)
         vector_rotated = quaternion * Quaternion.from_vector(vector) * quaternion.inverse()
-        assert_that(vector_rotated, equal_to(Quaternion(0, 0, 0, 2.0)))
+
+        assert_that(abs(vector_rotated.w), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.x), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.y), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.z - 2.0), less_than_or_equal_to(Options.PRECISION))
 
     def test_rotate_z(self):
         """Testing rotation around z axis."""
@@ -91,7 +100,11 @@ class QuaternionTest(TestCase):
         quaternion = Quaternion(math.cos(w/2.0), 0, 0, math.sin(w/2.0))
         vector = Vector(0.0, 2.0, 0.0)
         vector_rotated = quaternion * Quaternion.from_vector(vector) * quaternion.inverse()
-        assert_that(vector_rotated, equal_to(Quaternion(0, -2, 0, 0)))
+
+        assert_that(abs(vector_rotated.w), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.x + 2.0), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.y), less_than_or_equal_to(Options.PRECISION))
+        assert_that(abs(vector_rotated.z), less_than_or_equal_to(Options.PRECISION))
 
 
 def test_quaternion_mul_perf(benchmark):
