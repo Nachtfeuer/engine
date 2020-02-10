@@ -52,3 +52,5 @@ You might have to use another port if that one is in use.
  - https://docs.travis-ci.com/user/languages/python/
  - https://en.wikipedia.org/wiki/Vector_projection
  - https://pdoc3.github.io/pdoc/
+ - http://www.ncsa.illinois.edu/People/kindr/emtc/quaternions/
+ - http://www.ncsa.illinois.edu/People/kindr/emtc/quaternions/quaternion.c++

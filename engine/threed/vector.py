@@ -56,7 +56,7 @@ class Vector(AbstractVector):
 
         raise TypeError("You cannot add a value of type %s to a vector" % type(other))
 
-    def __neg__(self) -> Vector:
+    def __neg__(self) -> AbstractVector:
         """
         Returns:
             Vector: negation of current vector.

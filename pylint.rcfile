@@ -247,6 +247,7 @@ good-names=i,
            x,
            y,
            z,
+           w,
            ex,
            Run,
            _

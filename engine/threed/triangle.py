@@ -16,9 +16,9 @@ class Triangle:
         Initializing triangle with three points.
 
         Args:
-            point_a(Point): first point of triangle.
-            point_b(Point): second point of triangle.
-            point_c(Point): third point of triangle.
+            point_a(AbstractPoint): first point of triangle.
+            point_b(AbstractPoint): second point of triangle.
+            point_c(AbstractPoint): third point of triangle.
         """
         if all(isinstance(entry, AbstractPoint) for entry in [point_a, point_b, point_c]):
             self.__point_a = point_a

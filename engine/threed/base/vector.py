@@ -136,3 +136,10 @@ class AbstractVector(abc.ABC):
         Returns:
             AbstractVector: difference of two vectors.
         """
+
+    @abc.abstractmethod
+    def __neg__(self) -> AbstractVector:
+        """
+        Returns:
+            Vector: negation of current vector.
+        """
