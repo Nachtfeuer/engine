@@ -1,5 +1,6 @@
 """Module functions."""
 from __future__ import annotations
+import math
 import abc
 from engine.eval.variable import Variable
 
@@ -51,3 +52,15 @@ class SumOfDigits(Function):
     def calculate(self, value: int) -> int:
         """Calculate the sum of the digits of given value."""
         return sum(map(int, str(value)))
+
+
+class SquareRoot(Function):
+    """Calculate integer square root of variable value."""
+
+    def __repr__(self) -> str:
+        """String representation of the Square function."""
+        return "Square(%s)" % super().__repr__()
+
+    def calculate(self, value: int) -> int:
+        """Calculate the integer square root of given value."""
+        return int(math.sqrt(value))

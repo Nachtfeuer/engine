@@ -7,7 +7,7 @@ from unittest import TestCase
 from hamcrest import assert_that, equal_to, calling, raises
 
 from engine.eval.variable import Variable
-from engine.eval.functions import Square, SumOfDigits
+from engine.eval.functions import Square, SumOfDigits, SquareRoot
 
 
 class BadVariable(Variable):
@@ -40,3 +40,9 @@ class TestFunctions(TestCase):
         fun = SumOfDigits(Variable(123456789))
         assert_that(fun.get(), equal_to(45))
         assert_that(str(fun), "SumOfDigits(Variable(123456789))")
+
+    def test_integer_square_root(self):
+        """Testing integer square root function."""
+        fun = SquareRoot(Variable(1025))
+        assert_that(fun.get(), equal_to(32))
+        assert_that(str(fun), "SquareRoot(Variable(1025))")
