@@ -39,3 +39,15 @@ class Square(Function):
     def calculate(self, value: int) -> int:
         """Calculate the square of given value."""
         return value ** 2
+
+
+class SumOfDigits(Function):
+    """Calculate sum of digits of variable value."""
+
+    def __repr__(self) -> str:
+        """String representation of the Square function."""
+        return "SumOfDigits(%s)" % super().__repr__()
+
+    def calculate(self, value: int) -> int:
+        """Calculate the sum of the digits of given value."""
+        return sum(map(int, str(value)))

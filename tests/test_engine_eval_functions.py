@@ -7,7 +7,7 @@ from unittest import TestCase
 from hamcrest import assert_that, equal_to, calling, raises
 
 from engine.eval.variable import Variable
-from engine.eval.functions import Square
+from engine.eval.functions import Square, SumOfDigits
 
 
 class BadVariable(Variable):
@@ -30,7 +30,13 @@ class TestFunctions(TestCase):
         assert_that(fun.get(), equal_to(1024))
         assert_that(str(fun), "Square(Variable(32))")
 
-        # testing bad usage
+        # testing bad usage (just once because of abstract function)
         fun = Square(BadVariable())
         message = "Variable value should be of type 'int'"
         assert_that(calling(fun.get), raises(TypeError, message))
+
+    def test_sum_of_digits(self):
+        """Testing sum of digits function."""
+        fun = SumOfDigits(Variable(123456789))
+        assert_that(fun.get(), equal_to(45))
+        assert_that(str(fun), "SumOfDigits(Variable(123456789))")
