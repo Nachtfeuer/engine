@@ -1,5 +1,5 @@
 # engine
-A very simple 3D engine
+An "engine" for math
 
 [![Build Status](https://travis-ci.org/Nachtfeuer/engine.svg?branch=master)](https://travis-ci.org/Nachtfeuer/engine)
 [![Documentation](https://img.shields.io/badge/documentation-ok-brightgreen.svg)](https://nachtfeuer.github.io/engine/)
