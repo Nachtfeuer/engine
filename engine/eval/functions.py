@@ -64,3 +64,27 @@ class SquareRoot(Function):
     def calculate(self, value: int) -> int:
         """Calculate the integer square root of given value."""
         return int(math.sqrt(value))
+
+
+class Increment(Function):
+    """Calculate +1 of variable value."""
+
+    def __repr__(self) -> str:
+        """String representation of the increment function."""
+        return "Increment(%s)" % super().__repr__()
+
+    def calculate(self, value: int) -> int:
+        """Calculate the increment of given value."""
+        return value + 1
+
+
+class Decrement(Function):
+    """Calculate -1 of variable value."""
+
+    def __repr__(self) -> str:
+        """String representation of the decrement function."""
+        return "Decrement(%s)" % super().__repr__()
+
+    def calculate(self, value: int) -> int:
+        """Calculate the decrement of given value."""
+        return value - 1
