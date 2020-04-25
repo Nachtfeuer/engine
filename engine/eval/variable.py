@@ -29,3 +29,15 @@ class Variable:
         if isinstance(self.__value, Variable) and not lazy:
             return self.__value.get()
         return self.__value
+
+    def set(self, value):
+        """
+        Chane value.
+
+        Args:
+            value(int, Variable): new value for variable or new variable reference
+        """
+        if isinstance(value, (int, Variable)):
+            self.__value = value
+        else:
+            raise TypeError("Value not of type int or Variable")

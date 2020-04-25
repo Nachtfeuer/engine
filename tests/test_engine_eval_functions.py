@@ -40,6 +40,9 @@ class TestFunctions(TestCase):
         fun = SumOfDigits(Variable(123456789))
         assert_that(fun.get(), equal_to(45))
         assert_that(str(fun), "SumOfDigits(Variable(123456789))")
+        # handling of negative numbers
+        fun = SumOfDigits(Variable(-123456789))
+        assert_that(fun.get(), equal_to(45))
 
     def test_integer_square_root(self):
         """Testing integer square root function."""

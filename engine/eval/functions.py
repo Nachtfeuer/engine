@@ -12,6 +12,10 @@ class Function(abc.ABC):
         """Initialize function instance."""
         self.__variable = variable
 
+    def __repr__(self) -> str:
+        """We do not mention the function itself."""
+        return str(self.__variable)
+
     def get(self) -> int:
         """
         Calculate the square.
@@ -24,6 +28,10 @@ class Function(abc.ABC):
             return self.calculate(value)
 
         raise TypeError("Variable value should be of type 'int'")
+
+    def __call__(self) -> int:
+        """Execution calculation (same as get)."""
+        return self.get()
 
     @abc.abstractmethod
     def calculate(self, value: int) -> int:
@@ -51,7 +59,7 @@ class SumOfDigits(Function):
 
     def calculate(self, value: int) -> int:
         """Calculate the sum of the digits of given value."""
-        return sum(map(int, str(value)))
+        return sum(map(int, str(abs(value))))
 
 
 class SquareRoot(Function):
